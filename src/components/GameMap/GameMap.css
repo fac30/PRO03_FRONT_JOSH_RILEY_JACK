@@ -1,3 +1,7 @@
 .game-map {
   border: 1.5px black solid;
 }
+
+.country-group:hover {
+  fill: pink;
+}

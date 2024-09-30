@@ -1,8 +1,10 @@
-import countryPaths from "../../data/countries.json"; // Adjust the path as necessary
+import countriesData from "../../data/game-countries.json"; // Adjust the path as necessary
 import Country from "./Country/Country";
 import "./GameMap.css";
 
 const GameMap = () => {
+  console.log(Array.isArray(countriesData));
+
   return (
     <svg
       // id="wrapper-svg"
@@ -11,24 +13,29 @@ const GameMap = () => {
       fill="green"
       // height="100vh"
       stroke="white"
-      stroke-linecap="round"
-      stroke-linejoin="round"
-      stroke-width="0.5"
+      // stroke-linecap="round"
+      // stroke-linejoin="round"
+      // stroke-width="0.5"
       version="1.2"
       viewBox="0 0 2000 857"
       width="95vw"
       xmlns="http://www.w3.org/2000/svg"
     >
-      {Object.keys(countryPaths).map((country) => {
-        return countryPaths[country].map((path, index) => {
-          console.log(path);
-          return (
-            <Country
-              key={`${country}-${index}`} // Ensure unique keys for each element
-              path={path} // Pass each path from the array
-            />
-          );
-        });
+      {countriesData.map((country, countryIndex) => {
+        return (
+          <g
+            key={`${country.countryName}`}
+            className="country-group"
+            id={`${country.countryName}`}
+          >
+            {country.paths.map((path, pathIndex) => (
+              <Country
+                key={`${countryIndex}-${pathIndex}`} // Ensure unique keys
+                path={path} // Pass the path to the Country component
+              />
+            ))}
+          </g>
+        );
       })}
     </svg>
   );
