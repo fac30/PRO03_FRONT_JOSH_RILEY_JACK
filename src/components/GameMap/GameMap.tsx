@@ -12,14 +12,15 @@ const GameMap = () => {
       xmlns="http://www.w3.org/2000/svg"
     >
       {Object.keys(countryPaths).map((country) => {
-        console.log(countryPaths[country]);
-        return (
-          <Country
-            // key={country}
-            // countryName={country}
-            path={countryPaths[country]}
-          />
-        );
+        return countryPaths[country].map((path, index) => {
+          console.log(path);
+          return (
+            <Country
+              key={`${country}-${index}`} // Ensure unique keys for each element
+              path={path} // Pass each path from the array
+            />
+          );
+        });
       })}
     </svg>
   );
