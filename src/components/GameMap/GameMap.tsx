@@ -1,14 +1,28 @@
 import countryPaths from "../../data/countries.json"; // Adjust the path as necessary
+import Country from "./Country/Country";
 
-const GameMap: React.FC<{ country: string }> = ({ country }) => {
-  const paths = countryPaths[country] || [];
-
+const GameMap = () => {
   return (
-    <svg width="200" height="200">
-      {paths.map((path, index) => (
-        <path key={index} d={path} fill="currentColor" />
-      ))}
+    <svg
+      stroke="white"
+      strokeWidth="1px"
+      width="100vw"
+      height="100vh"
+      fill="green"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      {Object.keys(countryPaths).map((country) => {
+        console.log(countryPaths[country]);
+        return (
+          <Country
+            // key={country}
+            // countryName={country}
+            path={countryPaths[country]}
+          />
+        );
+      })}
     </svg>
   );
 };
+
 export default GameMap;

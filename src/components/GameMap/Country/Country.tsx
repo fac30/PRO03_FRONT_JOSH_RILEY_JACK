@@ -1,19 +1,7 @@
-const Map = ({ country, paths }) => {
-  return (
-    <g key={country} className="country-group">
-      <title>{country}</title> {/* Optional: Title for accessibility */}
-      {paths.map((path, index) => (
-        <path
-          key={index}
-          className="new-country"
-          stroke="white"
-          fill="green"
-          d={path}
-          strokeWidth="1"
-        />
-      ))}
-    </g>
-  );
+import "./Country.css";
+
+const Country = ({ path }) => {
+  return <path className="new-country" d={path}></path>;
 };
 
-export default Map;
+export default Country;
