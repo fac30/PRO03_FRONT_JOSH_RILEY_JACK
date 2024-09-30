@@ -16,7 +16,7 @@ const GameMap = () => {
       stroke-width="0.5"
       version="1.2"
       viewBox="0 0 2000 857"
-      width="80vw"
+      width="95vw"
       xmlns="http://www.w3.org/2000/svg"
     >
       {Object.keys(countryPaths).map((country) => {
