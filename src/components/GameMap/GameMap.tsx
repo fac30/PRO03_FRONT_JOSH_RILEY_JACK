@@ -1,14 +1,22 @@
 import countryPaths from "../../data/countries.json"; // Adjust the path as necessary
 import Country from "./Country/Country";
+import "./GameMap.css";
 
 const GameMap = () => {
   return (
     <svg
-      stroke="white"
-      strokeWidth="1px"
-      width="100vw"
-      height="100vh"
+      // id="wrapper-svg"
+      className="game-map"
+      baseProfile="tiny"
       fill="green"
+      // height="100vh"
+      stroke="white"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      stroke-width="0.5"
+      version="1.2"
+      viewBox="0 0 2000 857"
+      width="80vw"
       xmlns="http://www.w3.org/2000/svg"
     >
       {Object.keys(countryPaths).map((country) => {
