@@ -17,6 +17,7 @@ const App = () => {
         Map Tap Revenge
       </h1>
       <p className="text-3xl ml-28 mb-7">{currentCountry}</p>
+
       <GameMap currentCountryHandler={currentCountryHandler} />
     </div>
   );

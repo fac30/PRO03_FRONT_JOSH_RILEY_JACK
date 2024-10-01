@@ -1,3 +1,6 @@
-.game-map {
+.game-map-wrapper {
   border: 1.5px black solid;
+  overflow: hidden;
+  width: 90%;
+  margin: auto;
 }
