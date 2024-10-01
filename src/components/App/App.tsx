@@ -53,6 +53,10 @@ const App = () => {
       const data = await response.json();
       console.log("Response from server:", data);
       userScoreHandler(data.isCorrect);
+      if (data.isCorrect) {
+        console.log("correct!!!");
+        fetchNewCountry();
+      }
       // Handle the response data as needed
     } catch (error) {
       console.error("Error submitting user choice:", error);
