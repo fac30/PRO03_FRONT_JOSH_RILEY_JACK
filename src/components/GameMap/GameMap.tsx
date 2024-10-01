@@ -3,13 +3,11 @@ import Country from "./Country/Country";
 import CountryGroup from "./CountryGroup/CountryGroup";
 import "./GameMap.css";
 
-const GameMap = () => {
-  console.log(Array.isArray(countriesData));
-
+const GameMap = ({ currentCountryHandler }) => {
   return (
     <svg
       // id="wrapper-svg"
-      className="game-map"
+      className="game-map mx-auto"
       baseProfile="tiny"
       fill="green"
       // height="100vh"
@@ -25,6 +23,7 @@ const GameMap = () => {
       {countriesData.map((country, countryIndex) => {
         return (
           <CountryGroup
+            currentCountryHandler={currentCountryHandler}
             key={countryIndex}
             countryName={country.countryName}
             pathsArray={country.paths}
