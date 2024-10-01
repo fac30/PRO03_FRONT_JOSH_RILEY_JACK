@@ -4,7 +4,7 @@ import countriesData from "../../data/game-countries.json"; // Adjust the path a
 import CountryGroup from "./CountryGroup/CountryGroup";
 import "./GameMap.css";
 
-const GameMap = ({ userCountryHandler }) => {
+const GameMap = ({ userCountryHandler, submitUserChoice }) => {
   const [clickedCountries, setClickedCountries] = useState([]);
 
   const clickedCountriesHandler = (countryName) => {
@@ -62,6 +62,7 @@ const GameMap = ({ userCountryHandler }) => {
                 pathsArray={country.paths}
                 clickedCountriesHandler={clickedCountriesHandler}
                 clickedCountries={clickedCountries}
+                submitUserChoice={submitUserChoice}
               />
             );
           })}
