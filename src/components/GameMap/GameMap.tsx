@@ -1,43 +1,71 @@
+import { useState, useEffect, useRef } from "react";
+import panzoom from "panzoom";
 import countriesData from "../../data/game-countries.json"; // Adjust the path as necessary
-import Country from "./Country/Country";
+import CountryGroup from "./CountryGroup/CountryGroup";
 import "./GameMap.css";
 
-const GameMap = () => {
-  console.log(Array.isArray(countriesData));
+const GameMap = ({ currentCountryHandler }) => {
+  const [clickedCountries, setClickedCountries] = useState([]);
+
+  const clickedCountriesHandler = (countryName) => {
+    console.log(clickedCountries);
+    setClickedCountries((prevCountries) => [...prevCountries, countryName]);
+  };
+
+  const canvasRef = useRef(null);
+  const panzoomRef = useRef(null); // Create a ref to hold the panzoom instance
+
+  useEffect(() => {
+    const canvas = panzoom(canvasRef.current, {
+      autocenter: true,
+      maxZoom: 3,
+      minZoom: 0.15,
+      initialX: 7000,
+      initialY: 0,
+    });
+
+    panzoomRef.current = canvas;
+
+    return () => {
+      canvas.dispose();
+      document.body.style.overflow = "auto";
+    };
+  }, []);
 
   return (
-    <svg
-      // id="wrapper-svg"
-      className="game-map"
-      baseProfile="tiny"
-      fill="green"
-      // height="100vh"
-      stroke="white"
-      // stroke-linecap="round"
-      // stroke-linejoin="round"
-      // stroke-width="0.5"
-      version="1.2"
-      viewBox="0 0 2000 857"
-      width="95vw"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      {countriesData.map((country, countryIndex) => {
-        return (
-          <g
-            key={`${country.countryName}`}
-            className="country-group"
-            id={`${country.countryName}`}
-          >
-            {country.paths.map((path, pathIndex) => (
-              <Country
-                key={`${countryIndex}-${pathIndex}`} // Ensure unique keys
-                path={path} // Pass the path to the Country component
+    <div className="game-map-wrapper">
+      <svg
+        // id="wrapper-svg"
+        ref={canvasRef}
+        className="game-map mx-auto"
+        baseProfile="tiny"
+        fill="green"
+        // height="100vh"
+        stroke="white"
+        // stroke-linecap="round"
+        // stroke-linejoin="round"
+        // stroke-width="0.5"
+        version="1.2"
+        viewBox="0 0 2000 857"
+        width="95vw"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <g>
+          {countriesData.map((country, countryIndex) => {
+            return (
+              <CountryGroup
+                currentCountryHandler={currentCountryHandler}
+                key={countryIndex}
+                countryName={country.countryName}
+                pathsArray={country.paths}
+                clickedCountriesHandler={clickedCountriesHandler}
+                clickedCountries={clickedCountries}
               />
-            ))}
-          </g>
-        );
-      })}
-    </svg>
+            );
+          })}
+        </g>
+      </svg>
+    </div>
   );
 };
 
