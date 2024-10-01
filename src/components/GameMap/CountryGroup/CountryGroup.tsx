@@ -5,13 +5,15 @@ import "./CountryGroup.css";
 const CountryGroup = ({
   countryName,
   pathsArray,
-  currentCountryHandler,
+  userCountryHandler,
   clickedCountriesHandler,
   clickedCountries,
+  submitUserChoice,
 }) => {
   const handleClick = () => {
-    currentCountryHandler(countryName);
+    userCountryHandler(countryName);
     clickedCountriesHandler(countryName);
+    submitUserChoice(countryName); // Initial fetch on component mount
   };
 
   return (
