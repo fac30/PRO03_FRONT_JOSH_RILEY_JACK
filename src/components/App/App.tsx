@@ -1,12 +1,13 @@
 import { useState, useEffect } from "react";
 import GameMap from "../GameMap/GameMap";
 import "./App.css";
+import ScoresBlock from "../ScoresBlock/ScoresBlock";
 
 const App = () => {
   const [userScore, setUserScore] = useState<number>(0);
   const [currentCountry, setCurrentCountry] = useState<string>("");
   const [userChoice, setUserChoice] = useState<string>("");
-
+  const [highScore, setHighScore] = useState<number>(10);
   const userCountryHandler = (newCountry) => {
     setUserChoice(newCountry);
     // console.log(userChoice);
@@ -67,6 +68,8 @@ const App = () => {
       <h1 className=" text-center  max-w-xl text-6xl  mb-11  mt-9  mx-auto">
         Map Tap Revenge
       </h1>
+      <ScoresBlock userScore={userScore} highScore={highScore} />
+
       <p className="text-3xl ml-28 mb-7">{currentCountry}</p>
       <p className="text-3xl ml-28 mb-7">{userChoice}</p>
 
