@@ -18,11 +18,9 @@ const App = () => {
   };
 
   const userScoreHandler = (boolean) => {
-    setUserScore((prevScore) => {
-      const newScore = boolean ? prevScore + 1 : prevScore - 1; // Calculate new score
-      console.log(newScore); // Log the new score here
-      return newScore; // Return the new score to update the state
-    });
+    setUserScore(
+      (prevScore) => (boolean ? prevScore + 1 : prevScore - 1) // Calculate new score
+    );
   };
 
   const fetchNewCountry = async () => {
@@ -55,6 +53,9 @@ const App = () => {
       userScoreHandler(data.isCorrect);
       if (data.isCorrect) {
         console.log("correct!!!");
+        fetchNewCountry();
+      } else {
+        console.log("wrong!!");
         fetchNewCountry();
       }
       // Handle the response data as needed
