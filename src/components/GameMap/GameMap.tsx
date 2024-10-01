@@ -33,11 +33,11 @@ const GameMap = ({ currentCountryHandler }) => {
   }, []);
 
   return (
-    <div className="game-map-wrapper">
+    <div className="w-9/12 bg-white overflow-hidden shadow-2xl m-auto">
       <svg
         // id="wrapper-svg"
         ref={canvasRef}
-        className="game-map mx-auto"
+        className="game-map mx-auto cursor-grab active:cursor-grabbing"
         baseProfile="tiny"
         fill="green"
         // height="100vh"
