@@ -1,5 +1,6 @@
 import countriesData from "../../data/game-countries.json"; // Adjust the path as necessary
 import Country from "./Country/Country";
+import CountryGroup from "./CountryGroup/CountryGroup";
 import "./GameMap.css";
 
 const GameMap = () => {
@@ -23,18 +24,11 @@ const GameMap = () => {
     >
       {countriesData.map((country, countryIndex) => {
         return (
-          <g
-            key={`${country.countryName}`}
-            className="country-group"
-            id={`${country.countryName}`}
-          >
-            {country.paths.map((path, pathIndex) => (
-              <Country
-                key={`${countryIndex}-${pathIndex}`} // Ensure unique keys
-                path={path} // Pass the path to the Country component
-              />
-            ))}
-          </g>
+          <CountryGroup
+            key={countryIndex}
+            countryName={country.countryName}
+            pathsArray={country.paths}
+          />
         );
       })}
     </svg>

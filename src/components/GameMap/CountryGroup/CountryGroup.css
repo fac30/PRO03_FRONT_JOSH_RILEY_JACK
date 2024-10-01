@@ -1,0 +1,7 @@
+.country-group:hover {
+  fill: pink;
+}
+
+.country-group {
+  cursor: pointer;
+}
