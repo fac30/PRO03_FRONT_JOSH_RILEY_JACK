@@ -1,9 +1,16 @@
+import { useState } from "react";
 import countriesData from "../../data/game-countries.json"; // Adjust the path as necessary
-import Country from "./Country/Country";
 import CountryGroup from "./CountryGroup/CountryGroup";
 import "./GameMap.css";
 
 const GameMap = ({ currentCountryHandler }) => {
+  const [clickedCountries, setClickedCountries] = useState([]);
+
+  const clickedCountriesHandler = (countryName) => {
+    console.log(clickedCountries);
+    setClickedCountries((prevCountries) => [...prevCountries, countryName]);
+  };
+
   return (
     <svg
       // id="wrapper-svg"
@@ -27,6 +34,8 @@ const GameMap = ({ currentCountryHandler }) => {
             key={countryIndex}
             countryName={country.countryName}
             pathsArray={country.paths}
+            clickedCountriesHandler={clickedCountriesHandler}
+            clickedCountries={clickedCountries}
           />
         );
       })}

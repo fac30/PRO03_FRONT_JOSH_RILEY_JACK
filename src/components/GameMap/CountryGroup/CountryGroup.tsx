@@ -1,12 +1,27 @@
-import Country from "../Country/Country";
+import { useState } from "react";
 import "./CountryGroup.css";
 
-const CountryGroup = ({ countryName, pathsArray, currentCountryHandler }) => {
+const CountryGroup = ({
+  countryName,
+  pathsArray,
+  currentCountryHandler,
+  clickedCountriesHandler,
+  clickedCountries,
+}) => {
+  const handleClick = () => {
+    currentCountryHandler(countryName);
+    clickedCountriesHandler(countryName);
+  };
+
   return (
     <g
-      onClick={() => currentCountryHandler(countryName)}
+      onClick={handleClick}
       key={`${countryName}`}
-      className="country-group"
+      className={
+        clickedCountries.includes(countryName)
+          ? `fill-yellow-400`
+          : `fill-green-700 hover:fill-pink-300 cursor-pointer`
+      }
       id={`${countryName}`}
     >
       {pathsArray.map((path: string, pathIndex: number) => {
