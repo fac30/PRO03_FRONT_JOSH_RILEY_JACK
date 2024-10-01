@@ -1,0 +1,7 @@
+/* .new-country:hover {
+  fill: pink;
+} */
+
+.new-country {
+  cursor: pointer;
+}
