@@ -5,12 +5,12 @@ import "./CountryGroup.css";
 const CountryGroup = ({
   countryName,
   pathsArray,
-  currentCountryHandler,
+  userCountryHandler,
   clickedCountriesHandler,
   clickedCountries,
 }) => {
   const handleClick = () => {
-    currentCountryHandler(countryName);
+    userCountryHandler(countryName);
     clickedCountriesHandler(countryName);
   };
 

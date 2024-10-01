@@ -4,11 +4,10 @@ import countriesData from "../../data/game-countries.json"; // Adjust the path a
 import CountryGroup from "./CountryGroup/CountryGroup";
 import "./GameMap.css";
 
-const GameMap = ({ currentCountryHandler }) => {
+const GameMap = ({ userCountryHandler }) => {
   const [clickedCountries, setClickedCountries] = useState([]);
 
   const clickedCountriesHandler = (countryName) => {
-    console.log(clickedCountries);
     setClickedCountries((prevCountries) => [...prevCountries, countryName]);
   };
 
@@ -57,7 +56,7 @@ const GameMap = ({ currentCountryHandler }) => {
           {countriesData.map((country, countryIndex) => {
             return (
               <CountryGroup
-                currentCountryHandler={currentCountryHandler}
+                userCountryHandler={userCountryHandler}
                 key={countryIndex}
                 countryName={country.countryName}
                 pathsArray={country.paths}
