@@ -12,9 +12,30 @@ const GameMap = ({ currentCountryHandler }) => {
     setClickedCountries((prevCountries) => [...prevCountries, countryName]);
   };
 
+  const canvasRef = useRef(null);
+  const panzoomRef = useRef(null); // Create a ref to hold the panzoom instance
+
+  useEffect(() => {
+    const canvas = panzoom(canvasRef.current, {
+      autocenter: true,
+      maxZoom: 3,
+      minZoom: 0.15,
+      initialX: 7000,
+      initialY: 0,
+    });
+
+    panzoomRef.current = canvas;
+
+    return () => {
+      canvas.dispose();
+      document.body.style.overflow = "auto";
+    };
+  }, []);
+
   return (
     <svg
       // id="wrapper-svg"
+      ref={canvasRef}
       className="game-map mx-auto"
       baseProfile="tiny"
       fill="green"
