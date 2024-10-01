@@ -18,10 +18,12 @@ const GameMap = ({ currentCountryHandler }) => {
   useEffect(() => {
     const canvas = panzoom(canvasRef.current, {
       autocenter: true,
-      maxZoom: 3,
-      minZoom: 0.15,
-      initialX: 7000,
-      initialY: 0,
+      maxZoom: 10,
+      minZoom: 0.9,
+      initialX: 1000,
+      initialY: 300,
+      bounds: true,
+      boundsPadding: 0.1,
     });
 
     panzoomRef.current = canvas;
@@ -33,11 +35,11 @@ const GameMap = ({ currentCountryHandler }) => {
   }, []);
 
   return (
-    <div className="w-9/12 bg-white overflow-hidden shadow-2xl m-auto">
+    <div className="cursor-grab active:cursor-grabbing w-9/12 bg-white overflow-hidden shadow-2xl m-auto">
       <svg
         // id="wrapper-svg"
         ref={canvasRef}
-        className="game-map mx-auto cursor-grab active:cursor-grabbing"
+        className="game-map mx-auto"
         baseProfile="tiny"
         fill="green"
         // height="100vh"
@@ -47,7 +49,8 @@ const GameMap = ({ currentCountryHandler }) => {
         // stroke-width="0.5"
         version="1.2"
         viewBox="0 0 2000 857"
-        width="95vw"
+        width="100%"
+        height="100%"
         xmlns="http://www.w3.org/2000/svg"
       >
         <g>
