@@ -1,6 +1,7 @@
 import { useState } from "react";
 import GameMap from "../GameMap/GameMap";
 import "./App.css";
+import ScoresBlock from "../ScoresBlock/ScoresBlock";
 
 const App = () => {
   const [userScore, setUserScore] = useState<number>(0);
@@ -16,6 +17,7 @@ const App = () => {
       <h1 className=" text-center  max-w-xl text-6xl  mb-11  mt-9  mx-auto">
         Map Tap Revenge
       </h1>
+      <ScoresBlock/>
       <p className="text-3xl ml-28 mb-7">{currentCountry}</p>
 
       <GameMap currentCountryHandler={currentCountryHandler} />
