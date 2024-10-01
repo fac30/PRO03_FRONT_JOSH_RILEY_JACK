@@ -1,10 +1,10 @@
 import ScoreDisplay from "./ScoresDisplay/ScoreDisplay";
 
-const ScoresBlock = () => {
+const ScoresBlock = ({ userScore, highScore }) => {
   return (
     <div>
-      <ScoreDisplay />
-      <ScoreDisplay />
+      <ScoreDisplay displayType="highScore" score={highScore} />
+      <ScoreDisplay score={userScore} />
     </div>
   );
 };
