@@ -149,7 +149,7 @@ const App = () => {
     }
   }, [currentCountry]);
 
-  const [countryFact, setCountryFact] = useState<string>(""); 
+  const [countryFact, setCountryFact] = useState<string>("");
   const fetchCountryFact = async (country: string) => {
     try {
       const response = await fetch(`http://localhost:3000/random-fact`, {
@@ -157,7 +157,7 @@ const App = () => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ country }), 
+        body: JSON.stringify({ country }),
       });
 
       if (!response.ok) {
@@ -166,7 +166,7 @@ const App = () => {
 
       const data = await response.json();
       console.log(data);
-      setCountryFact(data.fact); 
+      setCountryFact(data.fact);
     } catch (error) {
       console.error("Error fetching country fact:", error);
     }
@@ -190,14 +190,10 @@ const App = () => {
       <p className="text-3xl m-auto w-80 mb-4 mt-4 text-center">
         {currentCountry}
       </p>
-<<<<<<< HEAD
       <CountryFact fact={countryFact} />
-=======
       <p className="text-3xl m-auto w-80 mb-4 mt-4 text-center">
         You have {remainingGuesses} guesses left!
       </p>
-      <CountryFact fact={fact} /> {/* Pass the hard-coded fact as a prop */}
->>>>>>> main
     </div>
   );
 };
