@@ -32,7 +32,7 @@ const App = () => {
   const [userScore, setUserScore] = useState<number>(0);
   const [highScore, setHighScore] = useState<number>(10);
   const [filledCountries, setFilledCountries] = useState([]);
-  const [userWrongClicks, setUserWrongClicks] = useState(0);
+  const [remainingGuesses, setRemainingGuesses] = useState(3);
 
   const filledCountriesHandler = (countryName) => {
     setFilledCountries((prevCountries) => [...prevCountries, countryName]);
@@ -62,13 +62,13 @@ const App = () => {
     }
   }, [countriesData]);
 
-  const handleWrongClick = () => {
-    setUserWrongClicks((prevClicks) => prevClicks + 1);
+  const handleRemainingGuesses = () => {
+    setRemainingGuesses((prevState) => prevState - 1);
   };
 
   // Reset wrong clicks to 0
-  const resetWrongClicks = () => {
-    setUserWrongClicks(0);
+  const resetRemainingGuesses = () => {
+    setRemainingGuesses(3);
   };
 
   const checkAnswer = (userAnswer) => {
@@ -78,17 +78,18 @@ const App = () => {
         "Winner!",
         `User choice was ${userAnswer}, current country was ${currentCountry}`
       );
+      resetRemainingGuesses();
       handleScoreChange(true);
       getRandomCountry();
-    } else if (userWrongClicks < 2) {
+    } else if (remainingGuesses > 1) {
       console.log(
         "Loser!",
         `User choice was ${userAnswer}, current country was ${currentCountry}`
       );
       // handleScoreChange(false);
-      handleWrongClick();
+      handleRemainingGuesses();
     } else {
-      resetWrongClicks();
+      resetRemainingGuesses();
       handleScoreChange(false);
       filledCountriesHandler(currentCountry);
       getRandomCountry();
@@ -162,6 +163,9 @@ const App = () => {
       />
       <p className="text-3xl m-auto w-80 mb-4 mt-4 text-center">
         {currentCountry}
+      </p>
+      <p className="text-3xl m-auto w-80 mb-4 mt-4 text-center">
+        You have {remainingGuesses} guesses left!
       </p>
       <CountryFact fact={fact} /> {/* Pass the hard-coded fact as a prop */}
     </div>
