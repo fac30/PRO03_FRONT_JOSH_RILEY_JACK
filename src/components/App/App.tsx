@@ -142,9 +142,35 @@ const App = () => {
 
   ////////////////************ FACT LOGIC ************************* *//////////////////
 
-  // Hard-coded country fact variable
-  const fact =
-    "This country is home to the world's longest fence, known as the Dingo Fence. Originally built to keep dingoes away from fertile land";
+  useEffect(() => {
+    if (currentCountry) {
+      // Only fetch if currentCountry is not an empty string
+      fetchCountryFact(currentCountry);
+    }
+  }, [currentCountry]);
+
+  const [countryFact, setCountryFact] = useState<string>("");
+  const fetchCountryFact = async (country: string) => {
+    try {
+      const response = await fetch(`http://localhost:3000/random-fact`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ country }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+
+      const data = await response.json();
+      console.log(data);
+      setCountryFact(data.fact);
+    } catch (error) {
+      console.error("Error fetching country fact:", error);
+    }
+  };
 
   ////////////////************ SCORE LOGIC ************************* *//////////////////
 
@@ -164,10 +190,10 @@ const App = () => {
       <p className="text-3xl m-auto w-80 mb-4 mt-4 text-center">
         {currentCountry}
       </p>
+      <CountryFact fact={countryFact} />
       <p className="text-3xl m-auto w-80 mb-4 mt-4 text-center">
         You have {remainingGuesses} guesses left!
       </p>
-      <CountryFact fact={fact} /> {/* Pass the hard-coded fact as a prop */}
     </div>
   );
 };
