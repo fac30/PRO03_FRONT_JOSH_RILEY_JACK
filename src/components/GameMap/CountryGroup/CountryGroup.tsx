@@ -7,11 +7,10 @@ const CountryGroup = ({
   userCountryHandler,
   clickedCountriesHandler,
   clickedCountries,
-
-  index,
+  userAnswerHandler,
 }) => {
   const handleClick = () => {
-    userCountryHandler(countryName);
+    userAnswerHandler(countryName);
     clickedCountriesHandler(countryName);
   };
 

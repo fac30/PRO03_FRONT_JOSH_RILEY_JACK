@@ -7,23 +7,71 @@ import Button from "../Button/Button";
 import CountryFact from "../CountryFact/CountryFact";
 
 const App = () => {
-  ////////////////************ COUNTRY LOGIC ************************* *//////////////////
+  ////////////////************ FETCH ALL DATABASE COUNTRIES LOGIC ************************* *//////////////////
   const [countriesData, setCountriesData] = useState<any[]>([]);
-  const [currentCountry, setCurrentCountry] = useState<string>("");
 
   const fetchCountries = async () => {
     try {
-      const response = await fetch(`http://localhost:3000/countries`); // Fetch based on selected continent
+      const response = await fetch(`http://localhost:3000/countries`); // Fetch data
       const data = await response.json();
-      console.log(data);
-      setCountriesData(data);
+      const dataArray = data.allCountries;
+
+      setCountriesData(dataArray);
     } catch (error) {
       console.error("Error fetching new country:", error);
     }
   };
 
-  const userCountryHandler = (newCountry: string) => {
-    setUserChoice(newCountry);
+  useEffect(() => {
+    fetchCountries();
+  }, []);
+
+  //////////////// ************ GAMEPLAY LOGIC ************************* //////////////////
+  const [currentCountry, setCurrentCountry] = useState<string>("");
+  const [userChoice, setUserChoice] = useState<string>("");
+  const [userScore, setUserScore] = useState<number>(0);
+  const [highScore, setHighScore] = useState<number>(10);
+
+  const getRandomCountry = () => {
+    // Generate a random index based on the array length
+    const randomIndex = Math.floor(Math.random() * countriesData.length);
+    const randomCountry = countriesData[randomIndex].country;
+    setCurrentCountry(randomCountry);
+  };
+
+  useEffect(() => {
+    if (countriesData.length > 0) {
+      getRandomCountry(); // Get a random country once data is loaded
+    }
+  }, [countriesData]);
+
+  const checkAnswer = (userAnswer) => {
+    if (userAnswer === currentCountry) {
+      console.log(
+        "Winner!",
+        `User choice was ${userAnswer}, current country was ${currentCountry}`
+      );
+      handleScoreChange(true);
+      getRandomCountry();
+    } else {
+      console.log(
+        "Loser!",
+        `User choice was ${userAnswer}, current country was ${currentCountry}`
+      );
+      handleScoreChange(false);
+      getRandomCountry();
+    }
+  };
+
+  const handleScoreChange = (isCorrect) => {
+    setUserScore((prevScore) => (isCorrect ? prevScore + 1 : prevScore - 1));
+  };
+
+  ////////////////************ USER COUNTRIES LOGIC ************************* *//////////////////
+
+  const userAnswerHandler = (userAnswer: string) => {
+    setUserChoice(userAnswer);
+    checkAnswer(userAnswer);
   };
 
   const currentCountryHandler = (newCountry: string) => {
@@ -65,21 +113,6 @@ const App = () => {
     "This country is home to the world's longest fence, known as the Dingo Fence. Originally built to keep dingoes away from fertile land";
 
   ////////////////************ SCORE LOGIC ************************* *//////////////////
-  const [highScore, setHighScore] = useState<number>(10);
-  const [userScore, setUserScore] = useState<number>(0);
-  const [userChoice, setUserChoice] = useState<string>("");
-
-  const userScoreHandler = (isCorrect: boolean) => {
-    setUserScore((prevScore) => {
-      const newScore = isCorrect ? prevScore + 1 : prevScore - 1; // Calculate new score
-      console.log(newScore); // Log the new score here
-      return newScore; // Return the new score to update the state
-    });
-  };
-
-  useEffect(() => {
-    fetchCountries();
-  }, []);
 
   return (
     <div>
@@ -88,12 +121,11 @@ const App = () => {
         <div className="flex gap-7 continent-buttons">{continentButtons}</div>
       </header>
       <ScoresBlock userScore={userScore} highScore={highScore} />
-      <p className="text-3xl ml-28 mb-7">{currentCountry}</p>
-      <p className="text-3xl ml-28 mb-7">{userChoice}</p>
-      <GameMap
-        userCountryHandler={userCountryHandler}
-        // submitUserChoice={submitUserChoice}
-      />
+      {/* <p className="text-3xl ml-28 mb-7">{userChoice}</p> */}
+      <GameMap userAnswerHandler={userAnswerHandler} />
+      <p className="text-3xl m-auto w-80 mb-4 mt-4 text-center">
+        {currentCountry}
+      </p>
       <CountryFact fact={fact} /> {/* Pass the hard-coded fact as a prop */}
     </div>
   );

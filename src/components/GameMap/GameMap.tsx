@@ -3,7 +3,7 @@ import panzoom from "panzoom";
 import countriesData from "../../data/game-countries.json"; // Adjust the path as necessary
 import CountryGroup from "./CountryGroup/CountryGroup";
 
-const GameMap = ({ userCountryHandler }) => {
+const GameMap = ({ userAnswerHandler }) => {
   const [clickedCountries, setClickedCountries] = useState([]);
 
   const clickedCountriesHandler = (countryName) => {
@@ -55,7 +55,7 @@ const GameMap = ({ userCountryHandler }) => {
           {countriesData.map((country, countryIndex) => {
             return (
               <CountryGroup
-                userCountryHandler={userCountryHandler}
+                userAnswerHandler={userAnswerHandler}
                 key={countryIndex}
                 index={countryIndex}
                 countryName={country.countryName}
