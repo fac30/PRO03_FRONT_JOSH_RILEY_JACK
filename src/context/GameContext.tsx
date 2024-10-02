@@ -92,6 +92,12 @@ export const GameProvider = ({ children }) => {
     checkAnswer(userAnswer);
   };
 
+  const handleContinentClick = (continent: string) => {
+    setContinentChoice(continent);
+    console.log("User selected:", continent);
+    // fetchNewCountry(continent);
+  };
+
   return (
     <GameContext.Provider
       value={{
@@ -103,6 +109,7 @@ export const GameProvider = ({ children }) => {
         continentChoice,
         filledCountries,
         userAnswerHandler,
+        handleContinentClick,
       }}
     >
       {children}
