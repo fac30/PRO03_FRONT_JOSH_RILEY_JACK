@@ -58,66 +58,18 @@ const App = () => {
     });
   };
 
-  // Fetch the continents from the backend when the component mounts
-  const fetchContinents = async () => {
+  const fetchCountries = async (continent: string) => {
     try {
-      const response = await fetch("http://localhost:3000/continents");
-      const data: string[] = await response.json();
-      setContinents(data); // Set the continents into state (currently unused)
-    } catch (error) {
-      console.error("Error fetching continents:", error);
-    }
-  };
-
-  const fetchNewCountry = async (continent: string) => {
-    try {
-      const response = await fetch(
-        `http://localhost:3000/question?continent=${continent}`
-      ); // Fetch based on selected continent
+      const response = await fetch(`http://localhost:3000/countries`); // Fetch based on selected continent
       const data = await response.json();
       console.log(data);
-      setCurrentCountry(data.currentCountry); // Assuming the API returns a "country" field
     } catch (error) {
       console.error("Error fetching new country:", error);
     }
   };
 
-  const submitUserChoice = async (countryClicked: string) => {
-    try {
-      const response = await fetch("http://localhost:3000/answer", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json", // Set the content type to JSON
-        },
-        body: JSON.stringify({ answer: countryClicked }), // Send as {"answer": "userChoice"}
-      });
-
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-
-      const data = await response.json();
-      console.log("Response from server:", data);
-      userScoreHandler(data.isCorrect);
-      if (data.isCorrect) {
-        console.log("correct!!!");
-        fetchNewCountry();
-      } else {
-        console.log("wrong!!");
-        fetchNewCountry();
-      }
-    } catch (error) {
-      console.error("Error submitting user choice:", error);
-    }
-  };
-
   useEffect(() => {
-    fetchNewCountry(""); // Optional: fetch an initial country or based on continent
-  }, []);
-
-  // Keep the continents fetch logic in place
-  useEffect(() => {
-    fetchContinents();
+    fetchCountries();
   }, []);
 
   return (
@@ -131,7 +83,7 @@ const App = () => {
       <p className="text-3xl ml-28 mb-7">{userChoice}</p>
       <GameMap
         userCountryHandler={userCountryHandler}
-        submitUserChoice={submitUserChoice}
+        // submitUserChoice={submitUserChoice}
       />
       <CountryFact fact={fact} /> {/* Pass the hard-coded fact as a prop */}
     </div>

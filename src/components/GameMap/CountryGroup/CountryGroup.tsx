@@ -8,13 +8,12 @@ const CountryGroup = ({
   userCountryHandler,
   clickedCountriesHandler,
   clickedCountries,
-  submitUserChoice,
+
   index,
 }) => {
   const handleClick = () => {
     userCountryHandler(countryName);
     clickedCountriesHandler(countryName);
-    submitUserChoice(countryName); // Initial fetch on component mount
   };
 
   return (
