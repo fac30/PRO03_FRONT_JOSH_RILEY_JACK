@@ -31,6 +31,11 @@ const App = () => {
   const [userChoice, setUserChoice] = useState<string>("");
   const [userScore, setUserScore] = useState<number>(0);
   const [highScore, setHighScore] = useState<number>(10);
+  const [filledCountries, setFilledCountries] = useState([]);
+
+  const filledCountriesHandler = (countryName) => {
+    setFilledCountries((prevCountries) => [...prevCountries, countryName]);
+  };
 
   const getRandomCountry = () => {
     console.log(countriesData);
@@ -58,6 +63,7 @@ const App = () => {
 
   const checkAnswer = (userAnswer) => {
     if (userAnswer === currentCountry) {
+      filledCountriesHandler(userAnswer);
       console.log(
         "Winner!",
         `User choice was ${userAnswer}, current country was ${currentCountry}`
@@ -134,7 +140,11 @@ const App = () => {
       </header>
       <ScoresBlock userScore={userScore} highScore={highScore} />
       {/* <p className="text-3xl ml-28 mb-7">{userChoice}</p> */}
-      <GameMap userAnswerHandler={userAnswerHandler} />
+      <GameMap
+        filledCountriesHandler={filledCountriesHandler}
+        userAnswerHandler={userAnswerHandler}
+        filledCountries={filledCountries}
+      />
       <p className="text-3xl m-auto w-80 mb-4 mt-4 text-center">
         {currentCountry}
       </p>
