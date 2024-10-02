@@ -127,6 +127,8 @@ const App = () => {
   const handleContinentClick = (continent: string) => {
     setContinentChoice(continent);
     console.log("User selected:", continent);
+    resetRemainingGuesses();
+
     // fetchNewCountry(continent);
   };
 
@@ -185,6 +187,7 @@ const App = () => {
         userAnswerHandler={userAnswerHandler}
         filledCountries={filledCountries}
       />
+
       <p className="text-3xl m-auto w-80 mb-4 mt-4 text-center">
         {currentCountry}
       </p>

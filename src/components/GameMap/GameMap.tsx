@@ -31,7 +31,7 @@ const GameMap = ({
   }, []);
 
   return (
-    <div className=" rounded-lg cursor-grab active:cursor-grabbing w-9/12 bg-white overflow-hidden shadow-2xl m-auto">
+    <div className=" rounded-lg cursor-grab active:cursor-grabbing w-9/12 bg-white overflow-hidden shadow-lg mt-6 mb-8 m-auto">
       <svg
         // id="wrapper-svg"
         ref={canvasRef}
