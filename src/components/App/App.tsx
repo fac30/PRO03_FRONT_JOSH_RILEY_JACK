@@ -14,26 +14,38 @@ const App = () => {
     try {
       const response = await fetch(`http://localhost:3000/countries`); // Fetch data
       const data = await response.json();
-      console.log(data);
-      setCountriesData(data);
+      const dataArray = data.allCountries;
+
+      setCountriesData(dataArray);
     } catch (error) {
       console.error("Error fetching new country:", error);
     }
   };
+
+  useEffect(() => {
+    fetchCountries();
+  }, []);
+
   //////////////// ************ GAMEPLAY LOGIC ************************* //////////////////
+  const [currentCountry, setCurrentCountry] = useState<string>("");
 
   const getRandomCountry = () => {
     // Generate a random index based on the array length
     const randomIndex = Math.floor(Math.random() * countriesData.length);
-    const randomCountry = countriesData[randomIndex];
-
+    const randomCountry = countriesData[randomIndex].country;
     console.log(randomCountry);
+    setCurrentCountry(randomCountry);
+
+    console.log("hello");
   };
 
-  getRandomCountry();
+  useEffect(() => {
+    if (countriesData.length > 0) {
+      getRandomCountry(); // Get a random country once data is loaded
+    }
+  }, [countriesData]);
 
   ////////////////************ USER COUNTRIES LOGIC ************************* *//////////////////
-  const [currentCountry, setCurrentCountry] = useState<string>("");
 
   const userCountryHandler = (newCountry: string) => {
     setUserChoice(newCountry);
@@ -89,10 +101,6 @@ const App = () => {
       return newScore; // Return the new score to update the state
     });
   };
-
-  useEffect(() => {
-    fetchCountries();
-  }, []);
 
   return (
     <div>
