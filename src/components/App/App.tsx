@@ -90,7 +90,6 @@ const App = () => {
       handleRemainingGuesses();
     } else {
       resetRemainingGuesses();
-      handleScoreChange(false);
       filledCountriesHandler(currentCountry);
       getRandomCountry();
     }
@@ -112,8 +111,7 @@ const App = () => {
   };
 
   ////////////////************ CONTINENT LOGIC ************************* *//////////////////
-  const [continentChoice, setContinentChoice] =
-    useState<string>("South America");
+  const [continentChoice, setContinentChoice] = useState<string>("Europe");
   const [continents, setContinents] = useState<string[]>([]); // State to hold continents
 
   // Hard-coded continents array for now
