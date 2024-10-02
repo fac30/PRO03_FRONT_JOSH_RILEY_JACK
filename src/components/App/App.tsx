@@ -33,11 +33,21 @@ const App = () => {
   const [highScore, setHighScore] = useState<number>(10);
 
   const getRandomCountry = () => {
+    console.log(countriesData);
+    const filteredCountries = countriesData.filter((country) => {
+      return country.continent === continentChoice;
+    });
+    console.log(filteredCountries);
     // Generate a random index based on the array length
-    const randomIndex = Math.floor(Math.random() * countriesData.length);
-    const randomCountry = countriesData[randomIndex].country;
+    const randomIndex = Math.floor(Math.random() * filteredCountries.length);
+    const randomCountry = filteredCountries[randomIndex].country;
     setCurrentCountry(randomCountry); // Remove the selected country from the array
-    countriesData.splice(randomIndex, 1);
+
+    // Remove the selected country from countriesData using splice
+    const countryIndexInOriginalArray = countriesData.findIndex(
+      (country) => country.country === randomCountry
+    );
+    countriesData.splice(countryIndexInOriginalArray, 1);
   };
 
   useEffect(() => {
@@ -80,7 +90,8 @@ const App = () => {
   };
 
   ////////////////************ CONTINENT LOGIC ************************* *//////////////////
-  const [continentChoice, setContinentChoice] = useState<string>("");
+  const [continentChoice, setContinentChoice] =
+    useState<string>("South America");
   const [continents, setContinents] = useState<string[]>([]); // State to hold continents
 
   // Hard-coded continents array for now
