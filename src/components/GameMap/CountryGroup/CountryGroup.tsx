@@ -9,6 +9,7 @@ const CountryGroup = ({
   clickedCountriesHandler,
   clickedCountries,
   submitUserChoice,
+  index,
 }) => {
   const handleClick = () => {
     userCountryHandler(countryName);

@@ -58,6 +58,7 @@ const GameMap = ({ userCountryHandler, submitUserChoice }) => {
               <CountryGroup
                 userCountryHandler={userCountryHandler}
                 key={countryIndex}
+                index={countryIndex}
                 countryName={country.countryName}
                 pathsArray={country.paths}
                 clickedCountriesHandler={clickedCountriesHandler}
