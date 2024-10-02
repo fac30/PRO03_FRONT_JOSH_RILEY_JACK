@@ -7,6 +7,7 @@ import Button from "../Button/Button";
 import CountryFact from "../CountryFact/CountryFact";
 
 const App = () => {
+  const [countriesData, setCountriesData] = useState<any[]>([]);
   const [userScore, setUserScore] = useState<number>(0);
   const [currentCountry, setCurrentCountry] = useState<string>("");
   const [userChoice, setUserChoice] = useState<string>("");
@@ -58,11 +59,12 @@ const App = () => {
     });
   };
 
-  const fetchCountries = async (continent: string) => {
+  const fetchCountries = async () => {
     try {
       const response = await fetch(`http://localhost:3000/countries`); // Fetch based on selected continent
       const data = await response.json();
       console.log(data);
+      setCountriesData(data);
     } catch (error) {
       console.error("Error fetching new country:", error);
     }
