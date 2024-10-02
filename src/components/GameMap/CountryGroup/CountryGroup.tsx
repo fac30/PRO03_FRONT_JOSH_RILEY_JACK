@@ -1,21 +1,13 @@
-import { useState, useRef, useEffect } from "react";
-import panzoom from "panzoom";
+import { useContext } from "react";
+import GameContext from "../../../context/GameContext";
 
-const CountryGroup = ({
-  countryName,
-  pathsArray,
-  userCountryHandler,
-  filledCountriesHandler,
-  filledCountries,
-  userAnswerHandler,
-}) => {
-  const handleClick = () => {
-    userAnswerHandler(countryName);
-  };
+const CountryGroup = ({ countryName, pathsArray }) => {
+  // Import functions from GameContext
+  const { userAnswerHandler, filledCountries } = useContext(GameContext);
 
   return (
     <g
-      onClick={handleClick}
+      onClick={() => userAnswerHandler(countryName)}
       key={`${countryName}`}
       className={
         filledCountries.includes(countryName)

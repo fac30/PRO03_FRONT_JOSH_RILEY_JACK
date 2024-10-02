@@ -1,13 +1,9 @@
-import { useState, useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 import panzoom from "panzoom";
 import countriesData from "../../data/game-countries.json"; // Adjust the path as necessary
 import CountryGroup from "./CountryGroup/CountryGroup";
 
-const GameMap = ({
-  userAnswerHandler,
-  filledCountriesHandler,
-  filledCountries,
-}) => {
+const GameMap = () => {
   const canvasRef = useRef(null);
   const panzoomRef = useRef(null); // Create a ref to hold the panzoom instance
 
@@ -33,16 +29,10 @@ const GameMap = ({
   return (
     <div className=" rounded-lg cursor-grab active:cursor-grabbing w-9/12 bg-white overflow-hidden shadow-lg mt-6 mb-8 m-auto">
       <svg
-        // id="wrapper-svg"
         ref={canvasRef}
-        className="game-map mx-auto"
         baseProfile="tiny"
         fill="green"
-        // height="100vh"
         stroke="white"
-        // stroke-linecap="round"
-        // stroke-linejoin="round"
-        // stroke-width="0.5"
         version="1.2"
         viewBox="0 0 2000 857"
         width="100%"
@@ -53,13 +43,10 @@ const GameMap = ({
           {countriesData.map((country, countryIndex) => {
             return (
               <CountryGroup
-                userAnswerHandler={userAnswerHandler}
                 key={countryIndex}
                 index={countryIndex}
                 countryName={country.countryName}
                 pathsArray={country.paths}
-                filledCountriesHandler={filledCountriesHandler}
-                filledCountries={filledCountries}
               />
             );
           })}
