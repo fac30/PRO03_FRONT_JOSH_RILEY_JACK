@@ -34,7 +34,7 @@ const GameMap = ({ userCountryHandler, submitUserChoice }) => {
   }, []);
 
   return (
-    <div className="cursor-grab active:cursor-grabbing w-9/12 bg-white overflow-hidden shadow-2xl m-auto">
+    <div className=" rounded-lg cursor-grab active:cursor-grabbing w-9/12 bg-white overflow-hidden shadow-2xl m-auto">
       <svg
         // id="wrapper-svg"
         ref={canvasRef}
