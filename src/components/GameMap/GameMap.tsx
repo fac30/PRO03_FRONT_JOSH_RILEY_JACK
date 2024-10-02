@@ -2,7 +2,6 @@ import { useState, useEffect, useRef } from "react";
 import panzoom from "panzoom";
 import countriesData from "../../data/game-countries.json"; // Adjust the path as necessary
 import CountryGroup from "./CountryGroup/CountryGroup";
-import "./GameMap.css";
 
 const GameMap = ({ userCountryHandler }) => {
   const [clickedCountries, setClickedCountries] = useState([]);

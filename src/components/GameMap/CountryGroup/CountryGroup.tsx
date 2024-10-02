@@ -1,6 +1,5 @@
 import { useState, useRef, useEffect } from "react";
 import panzoom from "panzoom";
-import "./CountryGroup.css";
 
 const CountryGroup = ({
   countryName,
