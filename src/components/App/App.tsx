@@ -149,7 +149,7 @@ const App = () => {
     }
   }, [currentCountry]);
 
-  const [countryFact, setCountryFact] = useState<string>(""); // Changed to camelCase
+  const [countryFact, setCountryFact] = useState<string>(""); 
   const fetchCountryFact = async (country: string) => {
     try {
       const response = await fetch(`http://localhost:3000/random-fact`, {
@@ -157,7 +157,7 @@ const App = () => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ country }), // Send the current country
+        body: JSON.stringify({ country }), 
       });
 
       if (!response.ok) {
@@ -166,7 +166,7 @@ const App = () => {
 
       const data = await response.json();
       console.log(data);
-      setCountryFact(data.fact); // Set the fact from the response
+      setCountryFact(data.fact); 
     } catch (error) {
       console.error("Error fetching country fact:", error);
     }
