@@ -11,6 +11,7 @@ const App = () => {
   const [currentCountry, setCurrentCountry] = useState<string>("");
   const [userChoice, setUserChoice] = useState<string>("");
   const [continentChoice, setContinentChoice] = useState<string>("");
+  const [randomFact, setRandomFact] = useState<string>("");
   const [highScore, setHighScore] = useState<number>(10);
   const [continents, setContinents] = useState<string[]>([]); // State to hold continents
 
@@ -124,9 +125,13 @@ const App = () => {
     <div>
       <header className="flex gap-20 w-full p-5 header">
         <Logo />
-        <div className="flex gap-7 continent-buttons">{continentButtons}</div>
       </header>
-      <ScoresBlock userScore={userScore} highScore={highScore} />
+      <div className="flex justify-center items-center gap-7 continent-buttons">
+        {continentButtons}
+      </div>
+      <div className="flex justify-center flex-row items-center mt-2">
+        <ScoresBlock userScore={userScore} highScore={highScore} />
+      </div>
       <p className="text-3xl ml-28 mb-7">{currentCountry}</p>
       <p className="text-3xl ml-28 mb-7">{userChoice}</p>
       <GameMap
