@@ -32,6 +32,7 @@ const App = () => {
   const [userScore, setUserScore] = useState<number>(0);
   const [highScore, setHighScore] = useState<number>(10);
   const [filledCountries, setFilledCountries] = useState([]);
+  const [userWrongClicks, setUserWrongClicks] = useState(0);
 
   const filledCountriesHandler = (countryName) => {
     setFilledCountries((prevCountries) => [...prevCountries, countryName]);
@@ -61,6 +62,15 @@ const App = () => {
     }
   }, [countriesData]);
 
+  const handleWrongClick = () => {
+    setUserWrongClicks((prevClicks) => prevClicks + 1);
+  };
+
+  // Reset wrong clicks to 0
+  const resetWrongClicks = () => {
+    setUserWrongClicks(0);
+  };
+
   const checkAnswer = (userAnswer) => {
     if (userAnswer === currentCountry) {
       filledCountriesHandler(userAnswer);
@@ -70,12 +80,17 @@ const App = () => {
       );
       handleScoreChange(true);
       getRandomCountry();
-    } else {
+    } else if (userWrongClicks < 2) {
       console.log(
         "Loser!",
         `User choice was ${userAnswer}, current country was ${currentCountry}`
       );
+      // handleScoreChange(false);
+      handleWrongClick();
+    } else {
+      resetWrongClicks();
       handleScoreChange(false);
+      filledCountriesHandler(currentCountry);
       getRandomCountry();
     }
   };
