@@ -7,13 +7,12 @@ import Button from "../Button/Button";
 import CountryFact from "../CountryFact/CountryFact";
 
 const App = () => {
-  ////////////////************ COUNTRY LOGIC ************************* *//////////////////
+  ////////////////************ FETCH ALL DATABASE COUNTRIES LOGIC ************************* *//////////////////
   const [countriesData, setCountriesData] = useState<any[]>([]);
-  const [currentCountry, setCurrentCountry] = useState<string>("");
 
   const fetchCountries = async () => {
     try {
-      const response = await fetch(`http://localhost:3000/countries`); // Fetch based on selected continent
+      const response = await fetch(`http://localhost:3000/countries`); // Fetch data
       const data = await response.json();
       console.log(data);
       setCountriesData(data);
@@ -21,6 +20,20 @@ const App = () => {
       console.error("Error fetching new country:", error);
     }
   };
+  //////////////// ************ GAMEPLAY LOGIC ************************* //////////////////
+
+  const getRandomCountry = () => {
+    // Generate a random index based on the array length
+    const randomIndex = Math.floor(Math.random() * countriesData.length);
+    const randomCountry = countriesData[randomIndex];
+
+    console.log(randomCountry);
+  };
+
+  getRandomCountry();
+
+  ////////////////************ USER COUNTRIES LOGIC ************************* *//////////////////
+  const [currentCountry, setCurrentCountry] = useState<string>("");
 
   const userCountryHandler = (newCountry: string) => {
     setUserChoice(newCountry);
