@@ -1,11 +1,12 @@
 import ScoreDisplay from "./ScoresDisplay/ScoreDisplay";
 
-const ScoresBlock = ({ userScore, highScore }) => {
+function ScoresBlock({ userScore, highScore }) {
   return (
     <div>
       <ScoreDisplay displayType="highScore" score={highScore} />
-      <ScoreDisplay score={userScore} />
+      <ScoreDisplay score={userScore} displayType={undefined} />
+
     </div>
   );
-};
-export default ScoresBlock;
+}
+export default ScoresBlock

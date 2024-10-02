@@ -1,0 +1,5 @@
+ .highScoreDisplay {
+        position: absolute;
+        top: 20px;
+        right: 0; /* This moves it to the right-hand side */
+      }
