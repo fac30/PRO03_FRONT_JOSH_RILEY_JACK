@@ -3,13 +3,11 @@ import panzoom from "panzoom";
 import countriesData from "../../data/game-countries.json"; // Adjust the path as necessary
 import CountryGroup from "./CountryGroup/CountryGroup";
 
-const GameMap = ({ userAnswerHandler }) => {
-  const [clickedCountries, setClickedCountries] = useState([]);
-
-  const clickedCountriesHandler = (countryName) => {
-    setClickedCountries((prevCountries) => [...prevCountries, countryName]);
-  };
-
+const GameMap = ({
+  userAnswerHandler,
+  filledCountriesHandler,
+  filledCountries,
+}) => {
   const canvasRef = useRef(null);
   const panzoomRef = useRef(null); // Create a ref to hold the panzoom instance
 
@@ -60,8 +58,8 @@ const GameMap = ({ userAnswerHandler }) => {
                 index={countryIndex}
                 countryName={country.countryName}
                 pathsArray={country.paths}
-                clickedCountriesHandler={clickedCountriesHandler}
-                clickedCountries={clickedCountries}
+                filledCountriesHandler={filledCountriesHandler}
+                filledCountries={filledCountries}
               />
             );
           })}

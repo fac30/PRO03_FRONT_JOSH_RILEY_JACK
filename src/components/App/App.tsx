@@ -31,12 +31,29 @@ const App = () => {
   const [userChoice, setUserChoice] = useState<string>("");
   const [userScore, setUserScore] = useState<number>(0);
   const [highScore, setHighScore] = useState<number>(10);
+  const [filledCountries, setFilledCountries] = useState([]);
+  const [remainingGuesses, setRemainingGuesses] = useState(3);
+
+  const filledCountriesHandler = (countryName) => {
+    setFilledCountries((prevCountries) => [...prevCountries, countryName]);
+  };
 
   const getRandomCountry = () => {
+    console.log(countriesData);
+    const filteredCountries = countriesData.filter((country) => {
+      return country.continent === continentChoice;
+    });
+    console.log(filteredCountries);
     // Generate a random index based on the array length
-    const randomIndex = Math.floor(Math.random() * countriesData.length);
-    const randomCountry = countriesData[randomIndex].country;
-    setCurrentCountry(randomCountry);
+    const randomIndex = Math.floor(Math.random() * filteredCountries.length);
+    const randomCountry = filteredCountries[randomIndex].country;
+    setCurrentCountry(randomCountry); // Remove the selected country from the array
+
+    // Remove the selected country from countriesData using splice
+    const countryIndexInOriginalArray = countriesData.findIndex(
+      (country) => country.country === randomCountry
+    );
+    countriesData.splice(countryIndexInOriginalArray, 1);
   };
 
   useEffect(() => {
@@ -45,20 +62,36 @@ const App = () => {
     }
   }, [countriesData]);
 
+  const handleRemainingGuesses = () => {
+    setRemainingGuesses((prevState) => prevState - 1);
+  };
+
+  // Reset wrong clicks to 0
+  const resetRemainingGuesses = () => {
+    setRemainingGuesses(3);
+  };
+
   const checkAnswer = (userAnswer) => {
     if (userAnswer === currentCountry) {
+      filledCountriesHandler(userAnswer);
       console.log(
         "Winner!",
         `User choice was ${userAnswer}, current country was ${currentCountry}`
       );
+      resetRemainingGuesses();
       handleScoreChange(true);
       getRandomCountry();
-    } else {
+    } else if (remainingGuesses > 1) {
       console.log(
         "Loser!",
         `User choice was ${userAnswer}, current country was ${currentCountry}`
       );
+      // handleScoreChange(false);
+      handleRemainingGuesses();
+    } else {
+      resetRemainingGuesses();
       handleScoreChange(false);
+      filledCountriesHandler(currentCountry);
       getRandomCountry();
     }
   };
@@ -79,7 +112,8 @@ const App = () => {
   };
 
   ////////////////************ CONTINENT LOGIC ************************* *//////////////////
-  const [continentChoice, setContinentChoice] = useState<string>("");
+  const [continentChoice, setContinentChoice] =
+    useState<string>("South America");
   const [continents, setContinents] = useState<string[]>([]); // State to hold continents
 
   // Hard-coded continents array for now
@@ -148,11 +182,22 @@ const App = () => {
       </header>
       <ScoresBlock userScore={userScore} highScore={highScore} />
       {/* <p className="text-3xl ml-28 mb-7">{userChoice}</p> */}
-      <GameMap userAnswerHandler={userAnswerHandler} />
+      <GameMap
+        filledCountriesHandler={filledCountriesHandler}
+        userAnswerHandler={userAnswerHandler}
+        filledCountries={filledCountries}
+      />
       <p className="text-3xl m-auto w-80 mb-4 mt-4 text-center">
         {currentCountry}
       </p>
+<<<<<<< HEAD
       <CountryFact fact={countryFact} />
+=======
+      <p className="text-3xl m-auto w-80 mb-4 mt-4 text-center">
+        You have {remainingGuesses} guesses left!
+      </p>
+      <CountryFact fact={fact} /> {/* Pass the hard-coded fact as a prop */}
+>>>>>>> main
     </div>
   );
 };

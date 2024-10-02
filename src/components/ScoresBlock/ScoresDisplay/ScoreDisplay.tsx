@@ -1,9 +1,8 @@
 const ScoreDisplay = ({ displayType, score }) => {
   return (
-    <h1 className="mb-8 ml-28">
-      I am a {displayType === "highScore" ? "high" : "user"} score display. The
-      score is <span className="text-2xl">{score}</span>
-    </h1>
+    <h2 className="text-2xl mb-2">
+      {displayType === "highScore" ? "High" : "User"} score is {score}
+    </h2>
   );
 };
 export default ScoreDisplay;

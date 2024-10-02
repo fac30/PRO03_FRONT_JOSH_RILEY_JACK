@@ -5,13 +5,12 @@ const CountryGroup = ({
   countryName,
   pathsArray,
   userCountryHandler,
-  clickedCountriesHandler,
-  clickedCountries,
+  filledCountriesHandler,
+  filledCountries,
   userAnswerHandler,
 }) => {
   const handleClick = () => {
     userAnswerHandler(countryName);
-    clickedCountriesHandler(countryName);
   };
 
   return (
@@ -19,7 +18,7 @@ const CountryGroup = ({
       onClick={handleClick}
       key={`${countryName}`}
       className={
-        clickedCountries.includes(countryName)
+        filledCountries.includes(countryName)
           ? `fill-yellow-400`
           : `fill-green-700 hover:fill-pink-300 cursor-pointer`
       }
