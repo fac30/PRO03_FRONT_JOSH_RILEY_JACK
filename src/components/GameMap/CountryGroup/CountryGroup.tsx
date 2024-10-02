@@ -1,6 +1,5 @@
 import { useState, useRef, useEffect } from "react";
 import panzoom from "panzoom";
-import "./CountryGroup.css";
 
 const CountryGroup = ({
   countryName,
@@ -8,12 +7,12 @@ const CountryGroup = ({
   userCountryHandler,
   clickedCountriesHandler,
   clickedCountries,
-  submitUserChoice,
+
+  index,
 }) => {
   const handleClick = () => {
     userCountryHandler(countryName);
     clickedCountriesHandler(countryName);
-    submitUserChoice(countryName); // Initial fetch on component mount
   };
 
   return (

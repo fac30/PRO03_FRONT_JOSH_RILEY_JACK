@@ -2,9 +2,8 @@ import { useState, useEffect, useRef } from "react";
 import panzoom from "panzoom";
 import countriesData from "../../data/game-countries.json"; // Adjust the path as necessary
 import CountryGroup from "./CountryGroup/CountryGroup";
-import "./GameMap.css";
 
-const GameMap = ({ userCountryHandler, submitUserChoice }) => {
+const GameMap = ({ userCountryHandler }) => {
   const [clickedCountries, setClickedCountries] = useState([]);
 
   const clickedCountriesHandler = (countryName) => {
@@ -58,11 +57,11 @@ const GameMap = ({ userCountryHandler, submitUserChoice }) => {
               <CountryGroup
                 userCountryHandler={userCountryHandler}
                 key={countryIndex}
+                index={countryIndex}
                 countryName={country.countryName}
                 pathsArray={country.paths}
                 clickedCountriesHandler={clickedCountriesHandler}
                 clickedCountries={clickedCountries}
-                submitUserChoice={submitUserChoice}
               />
             );
           })}
