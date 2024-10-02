@@ -121,9 +121,11 @@ const App = () => {
         <div className="flex gap-7 continent-buttons">{continentButtons}</div>
       </header>
       <ScoresBlock userScore={userScore} highScore={highScore} />
-      <p className="text-3xl ml-28 mb-7">{currentCountry}</p>
       {/* <p className="text-3xl ml-28 mb-7">{userChoice}</p> */}
       <GameMap userAnswerHandler={userAnswerHandler} />
+      <p className="text-3xl m-auto w-80 mb-4 mt-4 text-center">
+        {currentCountry}
+      </p>
       <CountryFact fact={fact} /> {/* Pass the hard-coded fact as a prop */}
     </div>
   );
