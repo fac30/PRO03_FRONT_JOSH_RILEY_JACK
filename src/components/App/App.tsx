@@ -36,7 +36,8 @@ const App = () => {
     // Generate a random index based on the array length
     const randomIndex = Math.floor(Math.random() * countriesData.length);
     const randomCountry = countriesData[randomIndex].country;
-    setCurrentCountry(randomCountry);
+    setCurrentCountry(randomCountry); // Remove the selected country from the array
+    countriesData.splice(randomIndex, 1);
   };
 
   useEffect(() => {
