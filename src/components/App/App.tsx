@@ -16,6 +16,8 @@ const App = () => {
     handleContinentClick,
   } = useContext(GameContext);
 
+  
+
   // Hard-coded continents array for now
   const hardCodedContinents = [
     "North America",
