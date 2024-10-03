@@ -7,6 +7,7 @@ import Button from "../Button/Button";
 import CountryFact from "../CountryFact/CountryFact";
 
 const App = () => {
+  // Set states
   const [countriesData, setCountriesData] = useState<any[]>([]);
   const [currentCountry, setCurrentCountry] = useState<string>("");
   const [userScore, setUserScore] = useState<number>(0);
@@ -17,6 +18,8 @@ const App = () => {
   // Import functions from GameContext
   const { filledCountries, setFilledCountries, userAnswer } =
     useContext(GameContext);
+
+  //////////////////// ************ CONTINENTS LOGIC **************** /////////////////
 
   // Hard-coded continents array for now
   const hardCodedContinents = [
@@ -36,6 +39,13 @@ const App = () => {
     />
   ));
 
+  const handleContinentClick = (continent: string) => {
+    setContinentChoice(continent);
+    console.log("User selected:", continent);
+    // fetchNewCountry(continent);
+  };
+
+  //////////////////// ************ FACT LOGIC **************** /////////////////
   const [countryFact, setCountryFact] = useState<string>("");
 
   const fetchCountryFact = async (country: string) => {
@@ -66,7 +76,7 @@ const App = () => {
     }
   }, [currentCountry]);
 
-  ///////////////////////// NEW LOGIC
+  //////////////////// ************ DATABASE LOGIC **************** /////////////////
 
   const fetchCountries = async () => {
     try {
@@ -147,18 +157,6 @@ const App = () => {
   // Either increase or decrease score depending on boolean
   const increaseScore = () => {
     setUserScore((prevScore) => prevScore + 1);
-  };
-
-  ////////////////************ USER COUNTRIES LOGIC ************************* *//////////////////
-
-  // const userAnswerHandler = (userAnswer: string) => {
-  //   checkAnswer(userAnswer);
-  // };
-
-  const handleContinentClick = (continent: string) => {
-    setContinentChoice(continent);
-    console.log("User selected:", continent);
-    // fetchNewCountry(continent);
   };
 
   return (
