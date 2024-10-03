@@ -1,14 +1,82 @@
-import { useState, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
+import GameContext from "../../context/GameContext";
 import GameMap from "../GameMap/GameMap";
-
 import ScoresBlock from "../ScoresBlock/ScoresBlock";
 import Logo from "../Logo/Logo";
 import Button from "../Button/Button";
 import CountryFact from "../CountryFact/CountryFact";
 
 const App = () => {
-  ////////////////************ FETCH ALL DATABASE COUNTRIES LOGIC ************************* *//////////////////
+  // Set states
   const [countriesData, setCountriesData] = useState<any[]>([]);
+  const [currentCountry, setCurrentCountry] = useState<string>("");
+  const [userScore, setUserScore] = useState<number>(0);
+  const [highScore, setHighScore] = useState<number>(10);
+  const [remainingGuesses, setRemainingGuesses] = useState(3);
+  const [continentChoice, setContinentChoice] = useState<string>("Europe");
+
+  // Import functions from GameContext
+  const { filledCountries, setFilledCountries, userAnswer } =
+    useContext(GameContext);
+
+  //////////////////// ************ CONTINENTS LOGIC **************** /////////////////
+
+  // Hard-coded continents array for now
+  const hardCodedContinents = [
+    "North America",
+    "South America",
+    "Asia",
+    "Europe",
+    "Africa",
+    "Whole World",
+  ];
+
+  const continentButtons = hardCodedContinents.map((continent) => (
+    <Button
+      key={continent}
+      label={continent}
+      onClick={() => handleContinentClick(continent)}
+    />
+  ));
+
+  const handleContinentClick = (continent: string) => {
+    setContinentChoice(continent);
+    console.log("User selected:", continent);
+    // fetchNewCountry(continent);
+  };
+
+  //////////////////// ************ FACT LOGIC **************** /////////////////
+  const [countryFact, setCountryFact] = useState<string>("");
+
+  const fetchCountryFact = async (country: string) => {
+    try {
+      const response = await fetch(`http://localhost:3000/random-fact`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ country }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+
+      const data = await response.json();
+      setCountryFact(data.fact);
+    } catch (error) {
+      console.error("Error fetching country fact:", error);
+    }
+  };
+
+  useEffect(() => {
+    if (currentCountry) {
+      // Only fetch if currentCountry is not an empty string
+      fetchCountryFact(currentCountry);
+    }
+  }, [currentCountry]);
+
+  //////////////////// ************ DATABASE LOGIC **************** /////////////////
 
   const fetchCountries = async () => {
     try {
@@ -27,23 +95,15 @@ const App = () => {
   }, []);
 
   //////////////// ************ GAMEPLAY LOGIC ************************* //////////////////
-  const [currentCountry, setCurrentCountry] = useState<string>("");
-  const [userChoice, setUserChoice] = useState<string>("");
-  const [userScore, setUserScore] = useState<number>(0);
-  const [highScore, setHighScore] = useState<number>(10);
-  const [filledCountries, setFilledCountries] = useState([]);
-  const [remainingGuesses, setRemainingGuesses] = useState(3);
 
-  const filledCountriesHandler = (countryName) => {
+  const addToFilledCountries = (countryName) => {
     setFilledCountries((prevCountries) => [...prevCountries, countryName]);
   };
 
   const getRandomCountry = () => {
-    console.log(countriesData);
     const filteredCountries = countriesData.filter((country) => {
       return country.continent === continentChoice;
     });
-    console.log(filteredCountries);
     // Generate a random index based on the array length
     const randomIndex = Math.floor(Math.random() * filteredCountries.length);
     const randomCountry = filteredCountries[randomIndex].country;
@@ -62,131 +122,54 @@ const App = () => {
     }
   }, [countriesData]);
 
-  const handleRemainingGuesses = () => {
+  const decreaseRemainingGuesses = () => {
     setRemainingGuesses((prevState) => prevState - 1);
   };
 
-  // Reset wrong clicks to 0
+  // Reset remaining guesses to 3
   const resetRemainingGuesses = () => {
     setRemainingGuesses(3);
   };
 
-  const checkAnswer = (userAnswer) => {
+  const checkAnswer = () => {
+    console.log(`user answer is ${userAnswer}`);
     if (userAnswer === currentCountry) {
-      filledCountriesHandler(userAnswer);
-      console.log(
-        "Winner!",
-        `User choice was ${userAnswer}, current country was ${currentCountry}`
-      );
+      addToFilledCountries(userAnswer);
       resetRemainingGuesses();
-      handleScoreChange(true);
+      increaseScore(true);
       getRandomCountry();
     } else if (remainingGuesses > 1) {
-      console.log(
-        "Loser!",
-        `User choice was ${userAnswer}, current country was ${currentCountry}`
-      );
-      // handleScoreChange(false);
-      handleRemainingGuesses();
+      decreaseRemainingGuesses();
     } else {
       resetRemainingGuesses();
-      filledCountriesHandler(currentCountry);
+      addToFilledCountries(currentCountry);
       getRandomCountry();
     }
   };
 
-  const handleScoreChange = (isCorrect) => {
-    setUserScore((prevScore) => (isCorrect ? prevScore + 1 : prevScore - 1));
-  };
-
-  ////////////////************ USER COUNTRIES LOGIC ************************* *//////////////////
-
-  const userAnswerHandler = (userAnswer: string) => {
-    setUserChoice(userAnswer);
-    checkAnswer(userAnswer);
-  };
-
-  const currentCountryHandler = (newCountry: string) => {
-    setCurrentCountry(newCountry);
-  };
-
-  ////////////////************ CONTINENT LOGIC ************************* *//////////////////
-  const [continentChoice, setContinentChoice] = useState<string>("Europe");
-  const [continents, setContinents] = useState<string[]>([]); // State to hold continents
-
-  // Hard-coded continents array for now
-  const hardCodedContinents = [
-    "North America",
-    "South America",
-    "Asia",
-    "Europe",
-    "Africa",
-    "Whole World",
-  ];
-
-  const handleContinentClick = (continent: string) => {
-    setContinentChoice(continent);
-    console.log("User selected:", continent);
-    // fetchNewCountry(continent);
-  };
-
-  const continentButtons = hardCodedContinents.map((continent) => (
-    <Button
-      key={continent}
-      label={continent}
-      onClick={() => handleContinentClick(continent)}
-    />
-  ));
-
-  ////////////////************ FACT LOGIC ************************* *//////////////////
-
   useEffect(() => {
-    if (currentCountry) {
-      // Only fetch if currentCountry is not an empty string
-      fetchCountryFact(currentCountry);
+    if (userAnswer) {
+      // Ensure `userAnswer` is not empty before checking
+      checkAnswer();
     }
-  }, [currentCountry]);
+  }, [userAnswer]); // Dependencies
 
-  const [countryFact, setCountryFact] = useState<string>("");
-  const fetchCountryFact = async (country: string) => {
-    try {
-      const response = await fetch(`http://localhost:3000/random-fact`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ country }),
-      });
-
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
-      }
-
-      const data = await response.json();
-      console.log(data);
-      setCountryFact(data.fact);
-    } catch (error) {
-      console.error("Error fetching country fact:", error);
-    }
+  // Either increase or decrease score depending on boolean
+  const increaseScore = () => {
+    setUserScore((prevScore) => prevScore + 1);
   };
-
-  ////////////////************ SCORE LOGIC ************************* *//////////////////
 
   return (
     <div>
-      <header className="flex gap-20 w-full p-5 header">
+      <header className="flex gap-20 w-full p-2  px-5 header">
         <Logo />
       </header>
 
-      <div className="flex justify-center gap-16 continent-buttons mb-16 mt-7">
+      <div className="flex justify-center gap-16 continent-buttons mb-10 mt-3">
         {continentButtons}
       </div>
 
-      <GameMap
-        filledCountriesHandler={filledCountriesHandler}
-        userAnswerHandler={userAnswerHandler}
-        filledCountries={filledCountries}
-      />
+      <GameMap />
       <ScoresBlock userScore={userScore} highScore={highScore} />
 
       <p className="text-3xl m-auto w-80 mb-4 mt-4 text-center">
