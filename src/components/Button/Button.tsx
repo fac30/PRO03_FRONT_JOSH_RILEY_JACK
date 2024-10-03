@@ -4,14 +4,15 @@ interface ButtonProps {
   isSelected: boolean;
 }
 
+//Changes button color if continent is selected
 const Button = ({ label, onClick, isSelected }: ButtonProps) => {
   const buttonStyle = isSelected
-    ? "bg-[#ecb200] text-black"
+    ? "bg-[#ecb200] text-white"
     : "bg-[#e2e2e2] hover:bg-[#ecb200] hover:text-white";
 
   return (
     <button
-      className={`border-none cursor-pointer w-[153px] h-[50px] rounded-md font-bold ${buttonStyle}`}
+      className={`border-none cursor-pointer w-[153px] h-[50px] rounded-md font-bold text-black ${buttonStyle}`}
       onClick={onClick}
     >
       {label}
