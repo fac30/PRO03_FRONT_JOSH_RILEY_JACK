@@ -3,7 +3,8 @@ import GameContext from "../../../context/GameContext";
 
 const CountryGroup = ({ countryName, pathsArray }) => {
   // Import functions from GameContext
-  const { filledCountries, setUserAnswer } = useContext(GameContext);
+  const { filledCountries, setUserAnswer, redFilledCountries } =
+    useContext(GameContext);
 
   return (
     <g
@@ -15,6 +16,8 @@ const CountryGroup = ({ countryName, pathsArray }) => {
       className={
         filledCountries.includes(countryName)
           ? `fill-yellow-400`
+          : redFilledCountries.includes(countryName)
+          ? `fill-red-500`
           : `fill-green-700 hover:fill-pink-300 cursor-pointer`
       }
       id={`${countryName}`}
