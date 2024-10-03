@@ -2,10 +2,9 @@ import { useContext } from "react";
 import GameContext from "../../../context/GameContext";
 
 const CountryGroup = ({ countryName, pathsArray }) => {
-  // Importing necessary values and functions from GameContext
-  // filledCountries: An array of countries already selected or filled
-  // setUserAnswer: A function to set the user's answer when a country is clicked
-  const { filledCountries, setUserAnswer } = useContext(GameContext);
+  // Import functions from GameContext
+  const { filledCountries, setUserAnswer, redFilledCountries } =
+    useContext(GameContext);
 
   return (
     <g
@@ -19,8 +18,10 @@ const CountryGroup = ({ countryName, pathsArray }) => {
       // If the country is filled, it gets a yellow fill, otherwise it’s green and changes to pink on hover
       className={
         filledCountries.includes(countryName)
-          ? `fill-yellow-400` // Country already selected
-          : `fill-green-700 hover:fill-pink-300 cursor-pointer` // Default state with hover effect
+          ? `fill-yellow-400`
+          : redFilledCountries.includes(countryName)
+          ? `fill-red-500`
+          : `fill-green-700 hover:fill-pink-300 cursor-pointer`
       }
       id={`${countryName}`} // Set the ID for each country
     >
