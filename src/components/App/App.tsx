@@ -176,15 +176,19 @@ const App = () => {
     <div>
       <header className="flex gap-20 w-full p-5 header">
         <Logo />
-        <div className="flex gap-7 continent-buttons">{continentButtons}</div>
       </header>
-      <ScoresBlock userScore={userScore} highScore={highScore} />
-      {/* <p className="text-3xl ml-28 mb-7">{userChoice}</p> */}
+
+      <div className="flex justify-center gap-16 continent-buttons mb-16 mt-7">
+        {continentButtons}
+      </div>
+
       <GameMap
         filledCountriesHandler={filledCountriesHandler}
         userAnswerHandler={userAnswerHandler}
         filledCountries={filledCountries}
       />
+      <ScoresBlock userScore={userScore} highScore={highScore} />
+
       <p className="text-3xl m-auto w-80 mb-4 mt-4 text-center">
         {currentCountry}
       </p>
