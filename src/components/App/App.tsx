@@ -36,6 +36,7 @@ const App = () => {
     "Whole World",
   ];
 
+  //Generates Buttons for each continent in hardCodedContinents array and assigns each with the relative functionality.
   const continentButtons = hardCodedContinents.map((continent) => (
     <Button
       key={continent}
@@ -62,6 +63,7 @@ const App = () => {
   //////////////////// ************ FACT LOGIC **************** /////////////////
   const [countryFact, setCountryFact] = useState<string>("");
 
+  // Sends POST request to back end with the generated country and returns a random fact about that country using OpenAI
   const fetchCountryFact = async (country: string) => {
     try {
       const response = await fetch(`http://localhost:3000/random-fact`, {
@@ -77,12 +79,13 @@ const App = () => {
       }
 
       const data = await response.json();
-      setCountryFact(data.fact);
+      setCountryFact(data.fact); //set countryFact state to data recieved from backend
     } catch (error) {
       console.error("Error fetching country fact:", error);
     }
   };
 
+  //Triggers a side effect whenever the value of currentCountry changes.
   useEffect(() => {
     if (currentCountry) {
       // Only fetch if currentCountry is not an empty string
