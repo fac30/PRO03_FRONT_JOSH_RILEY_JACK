@@ -1,14 +1,14 @@
-.continent-button {
+/* .continent-button {
   border: none;
   cursor: pointer;
-  width: 143px;
-  height: 42px;
+  width: 153px;
+  height: 50px;
   border-radius: 5px;
   background-color: #c0c0c0;
-  color: rgb(0, 0, 0);
+  font-weight: bold;
 }
 
 .continent-button:hover {
   color: white;
-  background-color: #e2b019;
-}
+  background-color: #ecb200;
+} */
