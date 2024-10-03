@@ -163,11 +163,11 @@ const App = () => {
 
   return (
     <div>
-      <header className="flex gap-20 w-full p-5 header">
+      <header className="flex gap-20 w-full p-2  px-5 header">
         <Logo />
       </header>
 
-      <div className="flex justify-center gap-16 continent-buttons mb-16 mt-7">
+      <div className="flex justify-center gap-16 continent-buttons mb-10 mt-3">
         {continentButtons}
       </div>
 
