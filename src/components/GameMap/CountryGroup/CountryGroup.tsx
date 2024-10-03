@@ -3,11 +3,14 @@ import GameContext from "../../../context/GameContext";
 
 const CountryGroup = ({ countryName, pathsArray }) => {
   // Import functions from GameContext
-  const { userAnswerHandler, filledCountries } = useContext(GameContext);
+  const { filledCountries, setUserAnswer } = useContext(GameContext);
 
   return (
     <g
-      onClick={() => userAnswerHandler(countryName)}
+      onClick={() => {
+        console.log("Setting user answer:", countryName);
+        setUserAnswer(countryName);
+      }}
       key={`${countryName}`}
       className={
         filledCountries.includes(countryName)
