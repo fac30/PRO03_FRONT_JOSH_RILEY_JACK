@@ -36,14 +36,23 @@ const App = () => {
       key={continent}
       label={continent}
       onClick={() => handleContinentClick(continent)}
+      isSelected={continentChoice === continent}
     />
   ));
 
+  // Handle when a continent is selected
   const handleContinentClick = (continent: string) => {
-    setContinentChoice(continent);
+    setContinentChoice(continent); // Only set continent choice here
+    resetRemainingGuesses();
     console.log("User selected:", continent);
-    // fetchNewCountry(continent);
   };
+
+  // This effect will trigger whenever continentChoice changes
+  useEffect(() => {
+    if (countriesData.length > 0) {
+      getRandomCountry(); // Fetch a random country based on the new continent
+    }
+  }, [continentChoice, countriesData]); // Trigger when continentChoice or countriesData changes
 
   //////////////////// ************ FACT LOGIC **************** /////////////////
   const [countryFact, setCountryFact] = useState<string>("");
@@ -102,18 +111,26 @@ const App = () => {
 
   const getRandomCountry = () => {
     const filteredCountries = countriesData.filter((country) => {
-      return country.continent === continentChoice;
+      return country.continent === continentChoice; // Use the updated continent choice here
     });
-    // Generate a random index based on the array length
-    const randomIndex = Math.floor(Math.random() * filteredCountries.length);
-    const randomCountry = filteredCountries[randomIndex].country;
-    setCurrentCountry(randomCountry); // Remove the selected country from the array
 
-    // Remove the selected country from countriesData using splice
-    const countryIndexInOriginalArray = countriesData.findIndex(
-      (country) => country.country === randomCountry
-    );
-    countriesData.splice(countryIndexInOriginalArray, 1);
+    if (filteredCountries.length > 0) {
+      // Generate a random index based on the array length
+      const randomIndex = Math.floor(Math.random() * filteredCountries.length);
+      const randomCountry = filteredCountries[randomIndex].country;
+      setCurrentCountry(randomCountry); // Set the selected country
+
+      // Remove the selected country from countriesData using splice
+      const countryIndexInOriginalArray = countriesData.findIndex(
+        (country) => country.country === randomCountry
+      );
+      countriesData.splice(countryIndexInOriginalArray, 1);
+    } else {
+      console.error(
+        "No countries found for the selected continent:",
+        continentChoice
+      );
+    }
   };
 
   useEffect(() => {
