@@ -13,9 +13,11 @@ const App = () => {
   const [highScore, setHighScore] = useState<number>(10);
   const [remainingGuesses, setRemainingGuesses] = useState(3);
   const [continentChoice, setContinentChoice] = useState<string>("Europe");
+
   // Import functions from GameContext
   const { filledCountries, setFilledCountries, userAnswer } =
     useContext(GameContext);
+
   // Hard-coded continents array for now
   const hardCodedContinents = [
     "North America",
