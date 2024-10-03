@@ -7,6 +7,7 @@ const GameContext = createContext();
 export const GameProvider = ({ children }) => {
   const [filledCountries, setFilledCountries] = useState<string[]>([]);
   const [userAnswer, setUserAnswer] = useState("");
+  const [redFilledCountries, setRedFilledCountries] = useState<string[]>([]);
 
   return (
     <GameContext.Provider
@@ -15,6 +16,8 @@ export const GameProvider = ({ children }) => {
         filledCountries,
         setUserAnswer,
         userAnswer,
+        redFilledCountries,
+        setRedFilledCountries,
       }}
     >
       {children}

@@ -16,8 +16,13 @@ const App = () => {
   const [continentChoice, setContinentChoice] = useState<string>("Europe");
 
   // Import functions from GameContext
-  const { filledCountries, setFilledCountries, userAnswer } =
-    useContext(GameContext);
+  const {
+    filledCountries,
+    setFilledCountries,
+    userAnswer,
+    redFilledCountries,
+    setRedFilledCountries,
+  } = useContext(GameContext);
 
   //////////////////// ************ CONTINENTS LOGIC **************** /////////////////
 
@@ -111,6 +116,9 @@ const App = () => {
   const addToFilledCountries = (countryName) => {
     setFilledCountries((prevCountries) => [...prevCountries, countryName]);
   };
+  const addToRedFilledCountries = (countryName) => {
+    setRedFilledCountries((prevCountries) => [...prevCountries, countryName]);
+  };
 
   const getRandomCountry = () => {
     const filteredCountries = countriesData.filter((country) => {
@@ -162,7 +170,7 @@ const App = () => {
       decreaseRemainingGuesses();
     } else {
       resetRemainingGuesses();
-      addToFilledCountries(currentCountry);
+      addToRedFilledCountries(currentCountry);
       getRandomCountry();
     }
   };

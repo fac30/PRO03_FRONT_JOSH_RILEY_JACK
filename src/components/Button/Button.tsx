@@ -1,7 +1,7 @@
 interface ButtonProps {
   label: string;
-  onClick: () => void;
-  isSelected: boolean;
+  onClick: () => void; // Function to be called when the button is clicked
+  isSelected: boolean; // Boolean indicating if the button is in a selected state
 }
 
 //Changes button color if continent is selected
@@ -20,4 +20,4 @@ const Button = ({ label, onClick, isSelected }: ButtonProps) => {
   );
 };
 
-export default Button;
+export default Button; // Export the Button component for use in other parts of the application
