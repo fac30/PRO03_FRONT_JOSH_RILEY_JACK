@@ -21,7 +21,7 @@ const CountryGroup = ({ countryName, pathsArray }) => {
           ? `fill-yellow-400`
           : redFilledCountries.includes(countryName)
           ? `fill-red-500`
-          : `fill-green-700 hover:fill-pink-300 cursor-pointer`
+          : `fill-green-700 hover:fill-green-500 cursor-pointer`
       }
       id={`${countryName}`} // Set the ID for each country
     >
