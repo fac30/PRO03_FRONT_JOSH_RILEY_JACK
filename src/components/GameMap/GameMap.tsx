@@ -11,11 +11,11 @@ const GameMap = () => {
     // Initialize the panzoom functionality on the SVG canvas
     const canvas = panzoom(canvasRef.current, {
       autocenter: true, // Automatically center the SVG
-      maxZoom: 10,      // Set maximum zoom level
-      minZoom: 0.9,     // Set minimum zoom level
-      initialX: 1000,   // Initial x-offset for centering the view
-      initialY: 300,    // Initial y-offset for centering the view
-      bounds: true,     // Restrict the zoom/panning within the canvas bounds
+      maxZoom: 10, // Set maximum zoom level
+      minZoom: 0.9, // Set minimum zoom level
+      initialX: 1000, // Initial x-offset for centering the view
+      initialY: 300, // Initial y-offset for centering the view
+      bounds: true, // Restrict the zoom/panning within the canvas bounds
       boundsPadding: 0.1, // Padding to ensure panning stops near the edges
     });
 
@@ -27,7 +27,7 @@ const GameMap = () => {
       canvas.dispose(); // Dispose the panzoom instance to free up resources
       document.body.style.overflow = "auto"; // Reset body overflow to default
     };
-  }, []); // 
+  }, []); //
 
   return (
     <div className="rounded-lg cursor-grab active:cursor-grabbing w-9/12 bg-white overflow-hidden shadow-lg mt-6 mb-8 m-auto">
