@@ -205,7 +205,10 @@ const App = () => {
         {currentCountry}
       </p>
       <CountryFact fact={countryFact} />
-      <p className="text-3xl m-auto w-80 mb-4 mt-4 text-center">
+      <p
+        data-test="remaining-guesses"
+        className="text-3xl m-auto w-80 mb-4 mt-4 text-center"
+      >
         You have {remainingGuesses} guesses left!
       </p>
     </div>
