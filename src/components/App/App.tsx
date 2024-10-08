@@ -39,6 +39,7 @@ const App = () => {
   //Generates Buttons for each continent in hardCodedContinents array and assigns each with the relative functionality.
   const continentButtons = hardCodedContinents.map((continent) => (
     <Button
+      data-test={`continent-button-${continent}`}
       key={continent}
       label={continent}
       onClick={() => handleContinentClick(continent)}
@@ -204,7 +205,10 @@ const App = () => {
         {currentCountry}
       </p>
       <CountryFact fact={countryFact} />
-      <p className="text-3xl m-auto w-80 mb-4 mt-4 text-center">
+      <p
+        data-test="remaining-guesses"
+        className="text-3xl m-auto w-80 mb-4 mt-4 text-center"
+      >
         You have {remainingGuesses} guesses left!
       </p>
     </div>

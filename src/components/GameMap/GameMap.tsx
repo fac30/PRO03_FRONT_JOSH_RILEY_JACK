@@ -48,6 +48,7 @@ const GameMap = () => {
           {countriesData.map((country, countryIndex) => {
             return (
               <CountryGroup
+                data-test={`country-${country.countryName}`}
                 key={countryIndex} // Unique key for each country
                 index={countryIndex}
                 countryName={country.countryName} // Country name prop

@@ -1,11 +1,17 @@
 interface ButtonProps {
   label: string;
-  onClick: () => void; // Function to be called when the button is clicked
-  isSelected: boolean; // Boolean indicating if the button is in a selected state
+  onClick: () => void;
+  isSelected: boolean;
+  "data-test"?: string;
 }
 
-//Changes button color if continent is selected
-const Button = ({ label, onClick, isSelected }: ButtonProps) => {
+// Changes button color if continent is selected
+const Button = ({
+  label,
+  onClick,
+  isSelected,
+  "data-test": dataTest,
+}: ButtonProps) => {
   const buttonStyle = isSelected
     ? "bg-[#ecb200] text-white"
     : "bg-[#e2e2e2] hover:bg-[#ecb200] hover:text-white";
@@ -14,6 +20,7 @@ const Button = ({ label, onClick, isSelected }: ButtonProps) => {
     <button
       className={`border-none cursor-pointer w-[153px] h-[50px] rounded-md font-bold text-black ${buttonStyle}`}
       onClick={onClick}
+      data-test={dataTest}
     >
       {label}
     </button>
