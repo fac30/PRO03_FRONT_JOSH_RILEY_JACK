@@ -8,6 +8,7 @@ const CountryGroup = ({ countryName, pathsArray }) => {
 
   return (
     <g
+      data-test={countryName}
       // When the user clicks on a country, log the selected country and set it as the user's answer
       onClick={() => {
         console.log("Setting user answer:", countryName);
@@ -31,6 +32,7 @@ const CountryGroup = ({ countryName, pathsArray }) => {
           <path
             id={`${countryName} ${pathIndex}`} // Unique ID for each path based on country and path index
             key={`${countryName} ${pathIndex}`} // Unique key for React's reconciliation process
+            data-test={`${countryName} ${pathIndex}`}
             d={path} // Set the "d" attribute of the path (defining the shape of the country)
           ></path>
         );
