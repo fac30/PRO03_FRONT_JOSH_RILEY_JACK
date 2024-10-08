@@ -1,9 +1,7 @@
-// ScoreDisplay component takes two props: displayType and score
-const ScoreDisplay = ({ displayType, score }) => {
+// ScoreDisplay component takes three props: displayType, score, and data-test
+const ScoreDisplay = ({ displayType, score, "data-test": dataTest }) => {
   return (
-    // Display the score in an h2 element with styling classes for font size and margin
-    <h2 className="text-xl mb-2">
-      {/* Conditional rendering: If displayType is "highScore", display "High", otherwise display "User" */}
+    <h2 className="text-xl mb-2" data-test={dataTest}>
       {displayType === "highScore" ? "High" : "User"} score: {score}
     </h2>
   );
