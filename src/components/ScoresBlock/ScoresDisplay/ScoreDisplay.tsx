@@ -1,5 +1,14 @@
-// ScoreDisplay component takes three props: displayType, score, and data-test
-const ScoreDisplay = ({ displayType, score, "data-test": dataTest }) => {
+type ScoreDisplayProps = {
+  displayType: "highScore" | "userScore";
+  score: number;
+  "data-test"?: string;
+};
+
+const ScoreDisplay = ({
+  displayType,
+  score,
+  "data-test": dataTest,
+}: ScoreDisplayProps) => {
   return (
     <h2 className="text-xl mb-2" data-test={dataTest}>
       {displayType === "highScore" ? "High" : "User"} score: {score}
@@ -7,4 +16,4 @@ const ScoreDisplay = ({ displayType, score, "data-test": dataTest }) => {
   );
 };
 
-export default ScoreDisplay; // Export the component for use in other parts of the app
+export default ScoreDisplay;
