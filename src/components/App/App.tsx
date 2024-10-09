@@ -10,10 +10,7 @@ const App = () => {
   const [countriesData, setCountriesData] = useState<any[]>([]);
   const [currentCountry, setCurrentCountry] = useState<string>("");
   const [userScore, setUserScore] = useState<number>(0);
-  const [highScore, setHighScore] = useState<number>(() => {
-    const savedHighScore = localStorage.getItem("highScore");
-    return savedHighScore ? parseInt(savedHighScore) : 0;
-  });
+  const [highScore, setHighScore] = useState<number>(0);
   const [remainingGuesses, setRemainingGuesses] = useState(3);
   const [continentChoice, setContinentChoice] = useState<string>("Europe");
 
@@ -196,6 +193,13 @@ const App = () => {
     }
     localStorage.setItem("highScore", highScore.toString());
   }, [userScore, highScore]);
+
+  useEffect(() => {
+    const savedHighScore = localStorage.getItem("highScore");
+    if (savedHighScore) {
+      setHighScore(parseInt(savedHighScore, 10));
+    }
+  }, []);
 
   return (
     <div>
