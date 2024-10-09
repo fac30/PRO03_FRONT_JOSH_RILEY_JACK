@@ -1,11 +1,14 @@
 import useGameContext from "../../../CustomHooks/useGameContext";
 
-interface CountryGroupPops {
+interface CountryGroupProps {
+  "data-test": string;
+  key: number;
+  index: number;
   countryName: string;
   pathsArray: string[];
 }
 
-const CountryGroup = ({ countryName, pathsArray }: CountryGroupPops) => {
+const CountryGroup = ({ countryName, pathsArray }: CountryGroupProps) => {
   // Import functions from GameContext
   const { filledCountries, setUserAnswer, redFilledCountries } =
     useGameContext();
