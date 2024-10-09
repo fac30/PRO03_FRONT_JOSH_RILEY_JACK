@@ -7,11 +7,10 @@ import Button from "../Button/Button";
 import CountryFact from "../CountryFact/CountryFact";
 
 const App = () => {
-  // Set states
   const [countriesData, setCountriesData] = useState<any[]>([]);
   const [currentCountry, setCurrentCountry] = useState<string>("");
   const [userScore, setUserScore] = useState<number>(0);
-  const [highScore, setHighScore] = useState<number>(10);
+  const [highScore, setHighScore] = useState<number>(0);
   const [remainingGuesses, setRemainingGuesses] = useState(3);
   const [continentChoice, setContinentChoice] = useState<string>("Europe");
 
@@ -192,6 +191,20 @@ const App = () => {
   const increaseScore = () => {
     setUserScore((prevScore) => prevScore + 1);
   };
+
+  useEffect(() => {
+    if (userScore > highScore) {
+      setHighScore(userScore);
+    }
+    localStorage.setItem("highScore", highScore.toString());
+  }, [userScore, highScore]);
+
+  useEffect(() => {
+    const savedHighScore = localStorage.getItem("highScore");
+    if (savedHighScore) {
+      setHighScore(parseInt(savedHighScore, 10));
+    }
+  }, []);
 
   return (
     <div>
