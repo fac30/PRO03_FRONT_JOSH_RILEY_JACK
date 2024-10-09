@@ -8,7 +8,8 @@
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "cypress:open": "cross-env NO_PROXY=localhost,nip.io npx cypress open"
+    "cypress:open": "NO_PROXY=localhost,127.0.0.1 cypress open",
+    "cypress:run": "NO_PROXY=localhost,127.0.0.1 cypress run"
   },
   "dependencies": {
     "panzoom": "^9.4.3",

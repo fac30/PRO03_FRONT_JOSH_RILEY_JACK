@@ -31,7 +31,6 @@ const App = () => {
     "Asia",
     "Europe",
     "Africa",
-    "Whole World",
   ];
 
   //Generates Buttons for each continent in hardCodedContinents array and assigns each with the relative functionality.
@@ -219,7 +218,10 @@ const App = () => {
       <GameMap />
       <ScoresBlock userScore={userScore} highScore={highScore} />
 
-      <p className="text-3xl m-auto w-80 mb-4 mt-4 text-center">
+      <p
+        data-test="current-country"
+        className="text-3xl m-auto w-80 mb-4 mt-4 text-center"
+      >
         {currentCountry}
       </p>
       <CountryFact fact={countryFact} />
