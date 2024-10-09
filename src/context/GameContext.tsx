@@ -1,10 +1,20 @@
-import { createContext, useState, useEffect } from "react";
+import { createContext, useState, ReactNode } from "react";
+
+// Define the type for the context value
+interface GameContextType {
+  filledCountries: string[];
+  setFilledCountries: React.Dispatch<React.SetStateAction<string[]>>;
+  userAnswer: string;
+  setUserAnswer: React.Dispatch<React.SetStateAction<string>>;
+  redFilledCountries: string[];
+  setRedFilledCountries: React.Dispatch<React.SetStateAction<string[]>>;
+}
 
 // Create the context
-const GameContext = createContext();
+const GameContext = createContext<GameContextType | undefined>(undefined);
 
 // Create a provider component
-export const GameProvider = ({ children }) => {
+export const GameProvider = ({ children }: { children: ReactNode }) => {
   const [filledCountries, setFilledCountries] = useState<string[]>([]);
   const [userAnswer, setUserAnswer] = useState("");
   const [redFilledCountries, setRedFilledCountries] = useState<string[]>([]);
