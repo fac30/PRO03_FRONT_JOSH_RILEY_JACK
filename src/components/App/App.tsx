@@ -7,7 +7,13 @@ import Button from "../Button/Button";
 import CountryFact from "../CountryFact/CountryFact";
 
 const App = () => {
-  const [countriesData, setCountriesData] = useState<any[]>([]);
+  interface CountryData {
+    country: string;
+    path: string[];
+    continent: string;
+  }
+
+  const [countriesData, setCountriesData] = useState<CountryData[]>([]);
   const [currentCountry, setCurrentCountry] = useState<string>("");
   const [userScore, setUserScore] = useState<number>(0);
   const [highScore, setHighScore] = useState<number>(0);
