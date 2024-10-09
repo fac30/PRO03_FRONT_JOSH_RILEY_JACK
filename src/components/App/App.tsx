@@ -15,7 +15,6 @@ const App = () => {
   const [remainingGuesses, setRemainingGuesses] = useState(3);
   const [continentChoice, setContinentChoice] = useState<string>("Europe");
 
-  // Import functions from GameContext
   const {
     filledCountries,
     setFilledCountries,
@@ -39,6 +38,7 @@ const App = () => {
   //Generates Buttons for each continent in hardCodedContinents array and assigns each with the relative functionality.
   const continentButtons = hardCodedContinents.map((continent) => (
     <Button
+      data-test={`continent-button-${continent}`}
       key={continent}
       label={continent}
       onClick={() => handleContinentClick(continent)}
@@ -113,11 +113,17 @@ const App = () => {
 
   //////////////// ************ GAMEPLAY LOGIC ************************* //////////////////
 
-  const addToFilledCountries = (countryName) => {
-    setFilledCountries((prevCountries) => [...prevCountries, countryName]);
+  const addToFilledCountries = (countryName: string) => {
+    setFilledCountries((prevCountries: string[]) => [
+      ...prevCountries,
+      countryName,
+    ]);
   };
-  const addToRedFilledCountries = (countryName) => {
-    setRedFilledCountries((prevCountries) => [...prevCountries, countryName]);
+  const addToRedFilledCountries = (countryName: string) => {
+    setRedFilledCountries((prevCountries: string[]) => [
+      ...prevCountries,
+      countryName,
+    ]);
   };
 
   const getRandomCountry = () => {
@@ -164,7 +170,7 @@ const App = () => {
     if (userAnswer === currentCountry) {
       addToFilledCountries(userAnswer);
       resetRemainingGuesses();
-      increaseScore(true);
+      increaseScore();
       getRandomCountry();
     } else if (remainingGuesses > 1) {
       decreaseRemainingGuesses();
@@ -204,7 +210,10 @@ const App = () => {
         {currentCountry}
       </p>
       <CountryFact fact={countryFact} />
-      <p className="text-3xl m-auto w-80 mb-4 mt-4 text-center">
+      <p
+        data-test="remaining-guesses"
+        className="text-3xl m-auto w-80 mb-4 mt-4 text-center"
+      >
         You have {remainingGuesses} guesses left!
       </p>
     </div>
