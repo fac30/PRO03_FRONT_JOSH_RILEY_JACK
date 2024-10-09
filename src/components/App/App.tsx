@@ -1,5 +1,5 @@
-import { useContext, useEffect, useState } from "react";
-import GameContext from "../../context/GameContext";
+import { useEffect, useState } from "react";
+import useGameContext from "../../CustomHooks/useGameContext";
 import GameMap from "../GameMap/GameMap";
 import ScoresBlock from "../ScoresBlock/ScoresBlock";
 import Logo from "../Logo/Logo";
@@ -7,20 +7,21 @@ import Button from "../Button/Button";
 import CountryFact from "../CountryFact/CountryFact";
 
 const App = () => {
-  const [countriesData, setCountriesData] = useState<any[]>([]);
+  interface CountryData {
+    country: string;
+    path: string[];
+    continent: string;
+  }
+
+  const [countriesData, setCountriesData] = useState<CountryData[]>([]);
   const [currentCountry, setCurrentCountry] = useState<string>("");
   const [userScore, setUserScore] = useState<number>(0);
   const [highScore, setHighScore] = useState<number>(0);
   const [remainingGuesses, setRemainingGuesses] = useState(3);
   const [continentChoice, setContinentChoice] = useState<string>("Europe");
 
-  const {
-    filledCountries,
-    setFilledCountries,
-    userAnswer,
-    redFilledCountries,
-    setRedFilledCountries,
-  } = useContext(GameContext);
+  const { setFilledCountries, userAnswer, setRedFilledCountries } =
+    useGameContext();
 
   //////////////////// ************ CONTINENTS LOGIC **************** /////////////////
 

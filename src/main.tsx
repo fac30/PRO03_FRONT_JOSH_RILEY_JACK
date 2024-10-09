@@ -5,9 +5,10 @@ import "./index.css";
 import { GameProvider } from "./context/GameContext.tsx";
 
 createRoot(document.getElementById("root")!).render(
-  // <StrictMode>
-  <GameProvider>
-    <App />
-  </GameProvider>
-  // </StrictMode>
+  <StrictMode>
+    <GameProvider>
+      <App />
+    </GameProvider>
+    //{" "}
+  </StrictMode>
 );
