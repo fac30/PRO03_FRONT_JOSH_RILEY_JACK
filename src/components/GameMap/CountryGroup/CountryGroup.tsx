@@ -1,10 +1,14 @@
-import { useContext } from "react";
-import GameContext from "../../../context/GameContext";
+import useGameContext from "../../../CustomHooks/useGameContext";
 
-const CountryGroup = ({ countryName, pathsArray }) => {
+interface CountryGroupPops {
+  countryName: string;
+  pathsArray: string[];
+}
+
+const CountryGroup = ({ countryName, pathsArray }: CountryGroupPops) => {
   // Import functions from GameContext
   const { filledCountries, setUserAnswer, redFilledCountries } =
-    useContext(GameContext);
+    useGameContext();
 
   return (
     <g
