@@ -1,32 +1,33 @@
 import { useEffect, useRef } from "react";
-import panzoom from "panzoom";
+import panzoom, { PanZoom } from "panzoom";
 import countriesData from "../../data/game-countries.json"; // Adjust the path as necessary
 import CountryGroup from "./CountryGroup/CountryGroup";
 
 const GameMap = () => {
-  const canvasRef = useRef(null);
-  const panzoomRef = useRef(null); // Create a ref to hold the panzoom instance
+  const canvasRef = useRef<SVGSVGElement | null>(null); // Your canvas reference
+  const panzoomRef = useRef<PanZoom | null>(null); // Properly typed ref for PanZoom instance
 
   useEffect(() => {
     // Initialize the panzoom functionality on the SVG canvas
-    const canvas = panzoom(canvasRef.current, {
-      autocenter: true, // Automatically center the SVG
-      maxZoom: 10, // Set maximum zoom level
-      minZoom: 0.9, // Set minimum zoom level
-      initialX: 1000, // Initial x-offset for centering the view
-      initialY: 300, // Initial y-offset for centering the view
-      bounds: true, // Restrict the zoom/panning within the canvas bounds
-      boundsPadding: 0.1, // Padding to ensure panning stops near the edges
-    });
+    if (canvasRef.current) {
+      const canvas = panzoom(canvasRef.current, {
+        autocenter: true, // Automatically center the SVG
+        maxZoom: 10, // Set maximum zoom level
+        minZoom: 0.9, // Set minimum zoom level
+        initialX: 1000, // Initial x-offset for centering the view
+        initialY: 300, // Initial y-offset for centering the view
+        bounds: true, // Restrict the zoom/panning within the canvas bounds
+        boundsPadding: 0.1, // Padding to ensure panning stops near the edges
+      });
+      // Store the panzoom instance in a ref to access it later if needed
+      panzoomRef.current = canvas;
 
-    // Store the panzoom instance in a ref to access it later if needed
-    panzoomRef.current = canvas;
-
-    // Cleanup function when the component unmounts or dependencies change
-    return () => {
-      canvas.dispose(); // Dispose the panzoom instance to free up resources
-      document.body.style.overflow = "auto"; // Reset body overflow to default
-    };
+      // Cleanup function when the component unmounts or dependencies change
+      return () => {
+        canvas.dispose(); // Dispose the panzoom instance to free up resources
+        document.body.style.overflow = "auto"; // Reset body overflow to default
+      };
+    }
   }, []); //
 
   return (
