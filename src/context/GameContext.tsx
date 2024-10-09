@@ -1,5 +1,14 @@
 import { createContext, useState, useEffect } from "react";
 
+interface GameContextType {
+  filledCountries: string[];
+  setFilledCountries: React.Dispatch<React.SetStateAction<string[]>>;
+  userAnswer: string;
+  setUserAnswer: React.Dispatch<React.SetStateAction<string>>;
+  redFilledCountries: string[];
+  setRedFilledCountries: React.Dispatch<React.SetStateAction<string[]>>;
+}
+
 // Create the context
 const GameContext = createContext();
 

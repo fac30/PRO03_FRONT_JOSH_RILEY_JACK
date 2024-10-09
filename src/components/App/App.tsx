@@ -15,7 +15,6 @@ const App = () => {
   const [remainingGuesses, setRemainingGuesses] = useState(3);
   const [continentChoice, setContinentChoice] = useState<string>("Europe");
 
-  // Import functions from GameContext
   const {
     filledCountries,
     setFilledCountries,
@@ -114,11 +113,17 @@ const App = () => {
 
   //////////////// ************ GAMEPLAY LOGIC ************************* //////////////////
 
-  const addToFilledCountries = (countryName) => {
-    setFilledCountries((prevCountries) => [...prevCountries, countryName]);
+  const addToFilledCountries = (countryName: string) => {
+    setFilledCountries((prevCountries: string[]) => [
+      ...prevCountries,
+      countryName,
+    ]);
   };
-  const addToRedFilledCountries = (countryName) => {
-    setRedFilledCountries((prevCountries) => [...prevCountries, countryName]);
+  const addToRedFilledCountries = (countryName: string) => {
+    setRedFilledCountries((prevCountries: string[]) => [
+      ...prevCountries,
+      countryName,
+    ]);
   };
 
   const getRandomCountry = () => {
@@ -165,7 +170,7 @@ const App = () => {
     if (userAnswer === currentCountry) {
       addToFilledCountries(userAnswer);
       resetRemainingGuesses();
-      increaseScore(true);
+      increaseScore();
       getRandomCountry();
     } else if (remainingGuesses > 1) {
       decreaseRemainingGuesses();
