@@ -16,7 +16,7 @@ const ScoresBlock = ({ userScore, highScore }: ScoresBlockProps) => {
       <ScoreDisplay
         data-test="user-score"
         score={userScore}
-        displayType={"highScore"}
+        displayType={"userScore"}
       />
     </div>
   );

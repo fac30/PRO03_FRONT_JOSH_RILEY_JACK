@@ -1,13 +1,13 @@
-type ScoreDisplayProps = {
+interface ScoreDisplayProps {
   displayType: "highScore" | "userScore";
   score: number;
-  "data-test"?: string;
+  "data-test": string; 
 };
 
 const ScoreDisplay = ({
   displayType,
   score,
-  "data-test": dataTest,
+  "data-test": dataTest, 
 }: ScoreDisplayProps) => {
   return (
     <h2 className="text-xl mb-2" data-test={dataTest}>
@@ -17,3 +17,4 @@ const ScoreDisplay = ({
 };
 
 export default ScoreDisplay;
+
