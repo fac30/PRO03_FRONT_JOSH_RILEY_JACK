@@ -15,10 +15,8 @@ const App = () => {
   const [continentChoice, setContinentChoice] = useState<string>("Europe");
 
   const {
-    filledCountries,
     setFilledCountries,
     userAnswer,
-    redFilledCountries,
     setRedFilledCountries,
   } = useContext(GameContext);
 
