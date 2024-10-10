@@ -10,7 +10,6 @@ describe("Continent Buttons", () => {
     "Europe",
     "Africa",
   ];
-
   continents.forEach((continent) => {
     it(`generates a new country and fact when '${continent}' clicked`, () => {
       cy.get('[data-test="current-country"]').then(($currentCountry) => {
