@@ -1,6 +1,6 @@
 describe("Continent Buttons", () => {
   beforeEach(() => {
-    cy.visit("http://localhost:5174/");
+    cy.visit("http://localhost:5173/");
   });
 
   const continents = [
