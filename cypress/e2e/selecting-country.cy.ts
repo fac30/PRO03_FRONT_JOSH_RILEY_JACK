@@ -27,8 +27,8 @@ describe("Countries", () => {
     cy.get('[data-test="remaining-guesses"]').then((currentGuesses) => {
       const initialGuesses = currentGuesses.text().trim();
 
-      cy.get('[data-test="current-country"]').then(($currentCountry) => {
-        const countryText = $currentCountry.text().trim();
+      cy.get('[data-test="current-country"]').then((currentCountry) => {
+        const countryText = currentCountry.text().trim();
 
         if (countryText === "Spain") {
           cy.get('[data-test="Italy"]').click();
